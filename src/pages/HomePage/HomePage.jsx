@@ -22,22 +22,22 @@ export default function HomePage({ setPage }) {
 
   return (
     <div>
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-amber-50 to-stone-100">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1600')] bg-cover bg-center opacity-20"></div>
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-stone-100">
+        <div className="absolute inset-0 bg-[url('public/assets/images/IMG_2905.JPG')] bg-cover bg-center opacity-100"></div>
         <div className="relative z-10 text-center px-6 animate-fadeInUp">
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-amber-900 mb-6">Crafted Elegance<br />for Your Home</h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto">Discover handcrafted furniture that transforms your space into a sanctuary of comfort and style</p>
+          <h1 className="text-5xl md:text-7xl  font-serif font-bold text-stone-900 mb-6 ">Crafted Elegance<br />for Your Home</h1>
+          <p className="text-xl md:text-2xl text-stone-950 mb-8 max-w-2xl mx-auto">Discover handcrafted furniture that transforms your space into a sanctuary of comfort and style</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => setPage("gallery")} className="bg-amber-900 text-white px-8 py-4 rounded-md text-lg hover:bg-amber-800 transition-all duration-300 hover:scale-105">Explore Collection</button>
+            <button onClick={() => setPage("gallery")} className="bg-blu-300 text-white px-8 py-4 rounded-md text-lg hover:bg-stone-500 transition-all duration-300 hover:scale-105">Explore Collection</button>
             <button onClick={() => setPage("contact")} className="bg-white text-amber-900 px-8 py-4 rounded-md text-lg border-2 border-amber-900 hover:bg-amber-50 transition-all duration-300">Get a Quote</button>
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-6">
+      <section className="bg-stone-300 py-20 px-6">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-amber-900 mb-4">Featured Collection</h2>
+          <div className="text-center mb-16  border-2 border-black">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-4">Featured Collection</h2>
             <p className="text-gray-600 text-lg">Handpicked pieces that define luxury living</p>
           </div>
 
@@ -56,7 +56,7 @@ export default function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section className="bg-white py-20 px-6">
+      <section className="bg-stone-300 py-20 px-6 border-2 border-black">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-12">
             {[
@@ -66,8 +66,8 @@ export default function HomePage({ setPage }) {
             ].map((item, idx) => (
               <div key={idx} className="text-center animate-fadeInUp" style={{ animationDelay: `${idx * 150}ms` }}>
                 <div className="text-6xl mb-4">{item.icon}</div>
-                <h3 className="text-2xl font-serif font-bold text-amber-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <h3 className="text-2xl font-serif font-bold text-stone-900 mb-3">{item.title}</h3>
+                <p className="text-stone-900">{item.desc}</p>
               </div>
             ))}
           </div>

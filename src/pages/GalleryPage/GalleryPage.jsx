@@ -14,6 +14,7 @@ export default function GalleryPage() {
     { name: "Modern Sofa", category: "sofa", price: "", img: "/assets/images/sofa.PNG" },
     { name: "Modular Kitchen", category: "dining", price: "", img: "/assets/images/kitchen1.JPG" },
     { name: "King Bed Frame", category: "bedroom", price: "", img: "/assets/images/bed.JPG" },
+    { name: "Living Area", category: "home", price: "", img: "/assets/images/IMG_2905.JPG" },
     { name: "Kids Study Table", category: "office", price: "", img: "/assets/images/stable.JPG" },
     { name: "Wall Art", category: "decor", price: "", img: "/assets/images/wallart.PNG" },
     { name: "L-Sofa with Swing Chair", category: "sofa", price: "", img: "/assets/images/sofa2.PNG" },
@@ -26,6 +27,7 @@ export default function GalleryPage() {
     { name: "Vanity", category: "home", price: "", img: "/assets/images/vanity.JPG" },
     { name: "Rocking Chair", category: "office", price: "", img: "/assets/images/rchair.PNG" },
     { name: "Coffee Table", category: "decor", price: "", img: "/assets/images/table1.jpg" },
+
     { name: "Dining Table Set", category: "dining", price: "", img: "/assets/images/dining1.jpg" }
   ];
 

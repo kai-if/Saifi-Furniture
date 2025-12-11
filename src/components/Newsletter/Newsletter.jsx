@@ -14,9 +14,9 @@ const Newsletter = () => {
       alert("Please enter a valid email.");
     }
   };
-
+//"bg-gradient-to-tr from-zinc-950 via-sky-950 to-gray-800 text-gray-100 relative mt-16"
   return (
-    <section className="bg-amber-900 text-white py-16 px-6">
+    <section className="bg-gradient-to-tr from-zinc-950 via-sky-950 to-gray-800 text-gray-100 py-16 px-6" >
       <div className="container mx-auto max-w-4xl text-center">
         <h2 className="text-4xl font-serif font-bold mb-4">Stay Inspired</h2>
         <p className="text-xl mb-8">Subscribe to our newsletter for design tips, exclusive offers, and new arrivals</p>

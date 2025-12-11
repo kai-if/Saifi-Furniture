@@ -1,76 +1,3 @@
-// import React from "react";
-
-// const Footer = ({ setCurrentPage }) => {
-//   return (
-//     <footer className="bg-gray-900 text-gray-300 py-12 px-6 mt-12">
-//       <div className="container mx-auto">
-//         <div className="grid md:grid-cols-4 gap-8 mb-8">
-//           <div>
-//             <h3 className="text-2xl font-serif font-bold text-white mb-4">Saifi Furniture</h3>
-//             <p className="text-sm">Crafting timeless furniture since 1960. Quality you can trust, design you'll love.</p>
-//           </div>
-
-//           <div>
-//             <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
-//             <ul className="space-y-2 text-sm">
-//               {["home", "about", "services", "gallery","testimonials", "contact"].map(page => (
-//                 <li key={page}>
-//                   <button onClick={() => setCurrentPage(page)} className="hover:text-amber-400 transition-colors capitalize">
-//                     {page === "home" ? "Home" : page === "about" ? "About Us" : page.charAt(0).toUpperCase() + page.slice(1)}
-//                   </button>
-//                 </li>
-//               ))}
-//             </ul>
-//           </div>
-
-//           <div>
-//             <h4 className="text-lg font-semibold text-white mb-4">Services</h4>
-//             <ul className="space-y-2 text-sm">
-//               <li className="hover:text-amber-400 transition-colors cursor-pointer">Custom Design</li>
-//               <li className="hover:text-amber-400 transition-colors cursor-pointer">Delivery & Setup</li>
-//               <li className="hover:text-amber-400 transition-colors cursor-pointer">Restoration</li>
-//               <li className="hover:text-amber-400 transition-colors cursor-pointer">Consultation</li>
-//             </ul>
-//           </div>
-
-//           <div>
-//             <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
-//             <div className="flex space-x-4">
-//               {["Facebook", "Instagram", "Pinterest", "Twitter"].map(social => (
-//                 <div key={social} className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-amber-900 transition-colors cursor-pointer">
-//                   <span className="text-xs">{social[0]}</span>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="border-t border-gray-800 pt-8 text-center text-sm">
-//           <p>&copy; 2025 Saifi Furniture. All rights reserved. | Privacy Policy | Terms of Service</p>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// src/components/Footer/Footer.jsx
 import React, { useState, useEffect } from "react";
 import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy } from "lucide-react";
 
@@ -147,7 +74,7 @@ const Footer = ({ setCurrentPage }) => {
   ];
 
   return (
-    <footer className="bg-gradient-to-tr from-gray-900 via-amber-900 to-gray-800 text-gray-100 relative mt-16">
+    <footer className="bg-gradient-to-tr from-zinc-950 via-sky-950 to-gray-800 text-gray-100 relative mt-16">
       <div className="container mx-auto py-12 px-6">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand + playful tagline */}
@@ -157,7 +84,7 @@ const Footer = ({ setCurrentPage }) => {
               className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition bg-transparent border-none p-0 m-0 focus:outline-none"
               style={{ background: "none", border: "none" }}
               >
-              <div className="text-3xl md:text-4xl font-serif font-bold text-white select-none">
+              <div className="text-3xl md:text-4xl font-serif font-bold text-blue-200 select-none">
                   SAIFI
               </div>
 
@@ -228,7 +155,7 @@ const Footer = ({ setCurrentPage }) => {
 
         {/* animated underline */}
         <span
-          className="absolute left-0 -bottom-0.5 h-0.5 w-0 rounded-full bg-amber-300 transition-all duration-350 group-hover:w-full"
+          className="absolute left-0 -bottom-0.5 h-0.5 w-0 rounded-full bg-gray-300 transition-all duration-350 group-hover:w-full"
           style={{ transitionTimingFunction: "cubic-bezier(.2,.9,.2,1)" }}
         />
       </button>
@@ -250,15 +177,15 @@ const Footer = ({ setCurrentPage }) => {
                 placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-md bg-white/10 border border-white/10 focus:border-amber-300 outline-none text-white placeholder:text-gray-300"
+                className="flex-1 px-3 py-2 rounded-md bg-white/10 border border-white/10 focus:border-blue-300 outline-none text-white placeholder:text-gray-300"
               />
-              <button type="submit" className="px-3 py-2 rounded-md bg-amber-50 text-amber-900 font-semibold hover:scale-105 transition">
+              <button type="submit" className="px-3 py-2 rounded-md bg-blue-50 text-blue-900 font-semibold hover:scale-105 transition">
                 {subscribed ? "Thanks!" : "Subscribe"}
               </button>
             </form>
 
             <div className="mt-4 flex items-center gap-3">
-              <div className="bg-white/6 px-3 py-2 rounded-md text-sm text-amber-100 select-all">
+              <div className="bg-white/6 px-3 py-2 rounded-md text-sm text-black-100 select-all">
                 Promo: <strong className="ml-2">{promoCode}</strong>
               </div>
               <button onClick={handleCopy} aria-label="Copy code" className="p-2 bg-white/10 rounded-md hover:bg-white/20 transition flex items-center gap-2">
@@ -267,7 +194,7 @@ const Footer = ({ setCurrentPage }) => {
               </button>
             </div>
 
-            <div className="mt-3 text-xs text-gray-300">Tip: use promo at checkout. Valid for first 100 customers 😉</div>
+            <div className="mt-3 text-xs text-gray-300">Tip: use promo at checkout. Valid for first 100 customers!</div>
           </div>
 
           {/* Contact + FAQ */}
@@ -276,23 +203,23 @@ const Footer = ({ setCurrentPage }) => {
 
             <div className="space-y-3 text-sm">
               <div className="flex items-start gap-3">
-                <MapPin size={18} className="mt-1 text-amber-200" />
+                <MapPin size={18} className="mt-1 text-blue-200" />
                 <div>
-                  <div className="font-medium text-gray-50">Showroom</div>
-                  <div className="text-gray-300 text-xs">Mangal Parao, Haldwani, Uttarakhand</div>
+                  <div className="font-medium text-gray-50">Saifi Furnitures,</div>
+                  <div className="text-gray-300 text-xs">Mangal Parao,<br></br> Haldwani, Uttarakhand - 263139</div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone size={18} className="mt-1 text-amber-200" />
+                <Phone size={18} className="mt-1 text-blue-200" />
                 <div>
                   <div className="font-medium text-gray-50">Call</div>
-                  <div className="text-gray-300 text-xs">+91 8077441194</div>
+                  <div className="text-gray-300 text-xs">+91 8077441194<br></br>+91 8474986781</div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Mail size={18} className="mt-1 text-amber-200" />
+                <Mail size={18} className="mt-1 text-blue-200" />
                 <div>
                   <div className="font-medium text-gray-50">Email</div>
                   <div className="text-gray-300 text-xs">info@Saifi-Furniture.com</div>
@@ -301,13 +228,13 @@ const Footer = ({ setCurrentPage }) => {
             </div>
 
             <div className="mt-6">
-              <h5 className="text-sm text-amber-100 mb-2">Quick FAQs</h5>
+              <h5 className="text-sm text-blue-100 mb-2">Quick FAQs</h5>
               <div className="space-y-2">
                 {faqs.map((f, i) => (
                   <details key={i} className="bg-white/5 rounded-md overflow-hidden">
                     <summary className="px-3 py-2 cursor-pointer text-sm flex justify-between items-center">
                       <span>{f.q}</span>
-                      <span className="text-amber-200 text-xs">?</span>
+                      <span className="text-blue-200 text-xs">?</span>
                     </summary>
                     <div className="px-3 py-2 text-gray-300 text-sm">{f.a}</div>
                   </details>
@@ -329,7 +256,7 @@ const Footer = ({ setCurrentPage }) => {
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
-          className="fixed right-6 bottom-16 z-50 bg-amber-500 text-white p-3 rounded-full shadow-lg hover:scale-110 transition"
+          className="fixed right-6 bottom-16 z-50 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:scale-110 transition"
         >
           <ChevronUp size={18} />
         </button>
