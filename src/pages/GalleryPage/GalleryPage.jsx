@@ -43,11 +43,11 @@ export default function GalleryPage() {
   return (
     <div className="pt-32 pb-20 px-6">
       <div className="container mx-auto">
-        <h1 className="text-5xl font-serif font-bold text-amber-900 mb-12 text-center animate-fadeInUp">Product Gallery</h1>
+        <h1 className="text-5xl font-serif font-bold text-sky-900 mb-12 text-center animate-fadeInUp">Product Gallery</h1>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12 animate-fadeInUp">
           {categories.map(cat => (
-            <button key={cat} onClick={() => setActiveFilter(cat)} className={`px-6 py-2 rounded-full capitalize transition-all duration-300 ${activeFilter === cat ? "bg-amber-900 text-white" : "bg-white text-gray-700 hover:bg-amber-100"}`}>
+            <button key={cat} onClick={() => setActiveFilter(cat)} className={`px-6 py-2 rounded-full capitalize transition-all duration-300 ${activeFilter === cat ? "bg-sky-900 text-white" : "bg-white text-gray-700 hover:bg-sky-100"}`}>
               {cat}
             </button>
           ))}

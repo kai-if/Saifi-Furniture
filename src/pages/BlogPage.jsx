@@ -14,8 +14,8 @@ const BlogPage = () => {
   return (
     <div className="pt-32 pb-20 px-6">
       <div className="container mx-auto max-w-6xl">
-        <h1 className="text-5xl font-serif font-bold text-amber-900 mb-8 text-center animate-fadeInUp">Design Ideas & Tips</h1>
-        <p className="text-center text-xl text-gray-600 mb-16 animate-fadeInUp">Expert insights to inspire your next interior design project</p>
+        <h1 className="text-5xl font-serif font-bold text-sky-900 mb-8 text-center animate-fadeInUp">Design Ideas & Tips</h1>
+        <p className="text-center text-xl text-gray-900 mb-16 animate-fadeInUp">Expert insights to inspire your next interior design project</p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post, idx) => (
@@ -26,17 +26,17 @@ const BlogPage = () => {
 
               <div className="p-6">
                 <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
-                  <span className="bg-amber-100 text-amber-900 px-3 py-1 rounded-full">{post.category}</span>
+                  <span className="bg-sky-100 text-sky-900 px-3 py-1 rounded-full">{post.category}</span>
                   <span>{post.readTime}</span>
                 </div>
 
-                <h2 className="text-xl font-serif font-bold text-gray-800 mb-3 hover:text-amber-900 transition-colors">{post.title}</h2>
+                <h2 className="text-xl font-serif font-bold text-gray-800 mb-3 hover:text-sky-900 transition-colors">{post.title}</h2>
 
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">{post.date}</span>
-                  <button className="text-amber-900 font-semibold hover:text-amber-700 flex items-center space-x-1">
+                  <span className="text-sm text-sky-700">{post.date}</span>
+                  <button className="text-sky-700 font-semibold hover:text-sky-500 flex items-center space-x-1">
                     <span>Read More</span>
                     <ArrowRight size={16} />
                   </button>

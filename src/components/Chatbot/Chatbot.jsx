@@ -22,13 +22,13 @@ const Chatbot = () => {
 
   return (
     <>
-      <button onClick={() => setShow(!show)} className="fixed bottom-6 right-6 bg-amber-900 text-white p-4 rounded-full shadow-lg hover:bg-amber-800 transition-all duration-300 hover:scale-110 z-50" aria-label="Open chat">
+      <button onClick={() => setShow(!show)} className="fixed bottom-6 right-6 bg-sky-900 text-white p-4 rounded-full shadow-lg hover:bg-sky-700 transition-all duration-300 hover:scale-110 z-50" aria-label="Open chat">
         <MessageCircle size={24} />
       </button>
 
       {show && (
         <div className="fixed bottom-24 right-6 w-80 bg-white rounded-lg shadow-2xl z-50 animate-fadeInUp">
-          <div className="bg-amber-900 text-white p-4 rounded-t-lg flex justify-between items-center">
+          <div className="bg-sky-900 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Chat with Us</h3>
             <button onClick={() => setShow(false)} aria-label="Close chat">
               <X size={20} />
@@ -38,7 +38,7 @@ const Chatbot = () => {
           <div className="h-80 overflow-y-auto p-4 space-y-3">
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[70%] p-3 rounded-lg ${msg.sender === "user" ? "bg-amber-900 text-white" : "bg-gray-100 text-gray-800"}`}>
+                <div className={`max-w-[70%] p-3 rounded-lg ${msg.sender === "user" ? "bg-sky-900 text-white" : "bg-gray-100 text-gray-800"}`}>
                   {msg.text}
                 </div>
               </div>
@@ -46,8 +46,8 @@ const Chatbot = () => {
           </div>
 
           <div className="p-4 border-t flex space-x-2">
-            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-900" />
-            <button onClick={handleSend} className="bg-amber-900 text-white p-2 rounded-md hover:bg-amber-800 transition-colors" aria-label="Send">
+            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900" />
+            <button onClick={handleSend} className="bg-sky-900 text-white p-2 rounded-md hover:bg-sky-800 transition-colors" aria-label="Send">
               <Send size={20} />
             </button>
           </div>

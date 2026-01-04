@@ -19,7 +19,7 @@ const TestimonialsPage = () => {
   return (
     <div className="pt-32 pb-20 px-6">
       <div className="container mx-auto max-w-4xl">
-        <h1 className="text-5xl font-serif font-bold text-amber-900 mb-8 text-center animate-fadeInUp">What Our Clients Say</h1>
+        <h1 className="text-5xl font-serif font-bold text-sky-900 mb-8 text-center animate-fadeInUp">What Our Clients Say</h1>
         <p className="text-center text-xl text-gray-600 mb-16 animate-fadeInUp">Real experiences from satisfied customers who trust Saifi Furniture</p>
 
         <div className="relative bg-white rounded-lg shadow-xl p-12 animate-fadeInUp">
@@ -31,19 +31,19 @@ const TestimonialsPage = () => {
             <p className="text-xl text-gray-700 italic mb-6 leading-relaxed">"{testimonials[currentIndex].text}"</p>
 
             <div className="mb-4">
-              <h3 className="text-2xl font-serif font-bold text-amber-900">{testimonials[currentIndex].name}</h3>
+              <h3 className="text-2xl font-serif font-bold text-sky-900">{testimonials[currentIndex].name}</h3>
               <p className="text-gray-600">{testimonials[currentIndex].role}</p>
             </div>
           </div>
 
           <div className="flex justify-center items-center space-x-4 mt-8">
-            <button onClick={prevTestimonial} className="bg-amber-900 text-white p-2 rounded-full hover:bg-amber-800 transition-colors duration-300"><ChevronDown className="rotate-90" size={24} /></button>
+            <button onClick={prevTestimonial} className="bg-sky-900 text-white p-2 rounded-full hover:bg-sky-800 transition-colors duration-300"><ChevronDown className="rotate-90" size={24} /></button>
 
             <div className="flex space-x-2">
-              {testimonials.map((_, idx) => <button key={idx} onClick={() => setCurrentIndex(idx)} className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? "bg-amber-900 w-8" : "bg-gray-300"}`} />)}
+              {testimonials.map((_, idx) => <button key={idx} onClick={() => setCurrentIndex(idx)} className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? "bg-sky-900 w-8" : "bg-gray-300"}`} />)}
             </div>
 
-            <button onClick={nextTestimonial} className="bg-amber-900 text-white p-2 rounded-full hover:bg-amber-800 transition-colors duration-300"><ChevronDown className="-rotate-90" size={24} /></button>
+            <button onClick={nextTestimonial} className="bg-sky-900 text-white p-2 rounded-full hover:bg-sky-800 transition-colors duration-300"><ChevronDown className="-rotate-90" size={24} /></button>
           </div>
         </div>
 
