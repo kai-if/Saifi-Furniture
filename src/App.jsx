@@ -30,7 +30,11 @@ export default function App() {
   return (
     <div className="font-sans text-gray-800 bg-stone-50">
       <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <main className="min-h-screen">{pages[currentPage]}</main>
+      <main className="min-h-screen overflow-hidden">
+          <div key={currentPage} className="animate-fadeInUp">
+             {pages[currentPage]}
+          </div>
+        </main>
       <Newsletter />
       <Footer setCurrentPage={setCurrentPage} />
       <Chatbot />

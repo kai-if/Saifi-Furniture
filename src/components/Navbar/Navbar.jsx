@@ -19,9 +19,9 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
     { id: "home", label: "Home" },
     { id: "services", label: "Services" },
     { id: "gallery", label: "Gallery" },
-    { id: "blog", label: "Ideas" },
+   // { id: "blog", label: "Ideas" },
     { id: "contact", label: "Contact" },
-    { id: "about", label: "About Us" },
+    { id: "about", label: "About_Us" },
     { id: "testimonials", label: "Testimonials" }
   ];
 

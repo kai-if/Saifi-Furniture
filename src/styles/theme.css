@@ -1,0 +1,11 @@
+:root {
+  --primary: #3b82f6;        /* blue-500 */
+  --primary-hover: #2563eb;  /* blue-600 */
+  --primary-soft: #dbeafe;   /* blue-100 */
+
+  --text-main: #1f2937;      /* gray-800 */
+  --text-muted: #6b7280;     /* gray-500 */
+
+  --bg-main: #ffffff;
+  --bg-dark: #111827;
+}
