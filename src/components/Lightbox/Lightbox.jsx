@@ -1,102 +1,219 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+
+/* ===============================
+   CONFIG — LUXURY MOTION
+================================ */
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 4;
+const FADE_DURATION = 480; // ms (luxury feel)
+const FADE_EASING = "cubic-bezier(0.4, 0.0, 0.2, 1)";
 
 export default function Lightbox({ images = [], startIndex = 0, onClose }) {
   const [index, setIndex] = useState(startIndex);
+  const [scale, setScale] = useState(1);
+  const [origin, setOrigin] = useState({ x: 50, y: 50 });
+  const [isFading, setIsFading] = useState(false);
 
-  // Lock scroll + sync index
+  const imgRef = useRef(null);
+  const pinchStartDist = useRef(0);
+  const pinchStartScale = useRef(1);
+
+  /* ===============================
+     INIT / CLEANUP
+  ================================ */
   useEffect(() => {
     setIndex(startIndex);
+    setScale(1);
+    setOrigin({ x: 50, y: 50 });
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
     };
   }, [startIndex]);
 
-  // Keyboard support
+  /* Keyboard navigation */
   useEffect(() => {
-    const handleKey = (e) => {
+    const onKey = (e) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   });
 
   if (!images.length) return null;
 
+  /* ===============================
+     HELPERS
+  ================================ */
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+  const updateOriginFromEvent = (e) => {
+    if (!imgRef.current) return;
+    const rect = imgRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setOrigin({ x, y });
+  };
+
+  /* ===============================
+     IMAGE CHANGE (LUXURY FADE)
+  ================================ */
+  const changeImage = (newIndex) => {
+    if (isFading) return;
+
+    setIsFading(true);
+
+    setTimeout(() => {
+      setScale(1);
+      setOrigin({ x: 50, y: 50 });
+      setIndex(newIndex);
+
+      // allow fade-in after swap
+      requestAnimationFrame(() => {
+        setIsFading(false);
+      });
+    }, FADE_DURATION);
+  };
+
   const prev = () =>
-    setIndex((i) => (i - 1 + images.length) % images.length);
+    changeImage((index - 1 + images.length) % images.length);
+
   const next = () =>
-    setIndex((i) => (i + 1) % images.length);
+    changeImage((index + 1) % images.length);
 
   const current = images[index];
-
-  // SUPPORT BOTH HOME + GALLERY DATA SHAPES
   const src = current.src || current.img;
   const alt = current.alt || current.name || "";
 
-  return (
+  /* ===============================
+     ZOOM HANDLERS
+  ================================ */
+
+  // Mouse wheel zoom (desktop)
+  const handleWheel = (e) => {
+    e.preventDefault();
+    updateOriginFromEvent(e);
+    setScale((s) =>
+      clamp(s + (e.deltaY < 0 ? 0.25 : -0.25), MIN_ZOOM, MAX_ZOOM)
+    );
+  };
+
+  // Double click zoom
+  const handleDoubleClick = (e) => {
+    updateOriginFromEvent(e);
+    setScale((s) => (s === 1 ? 2 : 1));
+  };
+
+  // Pinch zoom (mobile)
+  const distance = (t1, t2) =>
+    Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 2) {
+      pinchStartDist.current = distance(e.touches[0], e.touches[1]);
+      pinchStartScale.current = scale;
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const newDist = distance(e.touches[0], e.touches[1]);
+      setScale(
+        clamp(
+          pinchStartScale.current *
+            (newDist / pinchStartDist.current),
+          MIN_ZOOM,
+          MAX_ZOOM
+        )
+      );
+    }
+  };
+
+  /* ===============================
+     PORTAL CONTENT
+  ================================ */
+  const content = (
     <div
       className="
-        fixed inset-0 z-[10000]
+        fixed inset-0 z-[100000]
         bg-black
         flex items-center justify-center
       "
       role="dialog"
       aria-modal="true"
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
     >
       {/* Close */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 text-white hover:opacity-80"
+        className="absolute top-6 right-6 text-white hover:opacity-80 transition"
         aria-label="Close image"
       >
-        <X size={32} />
+        <X size={36} />
       </button>
 
-      {/* Previous */}
+      {/* Prev */}
       {images.length > 1 && (
         <button
           onClick={prev}
-          className="absolute left-6 top-1/2 -translate-y-1/2 text-white hover:opacity-80"
+          className="absolute left-6 top-1/2 -translate-y-1/2 text-white hover:opacity-80 transition"
           aria-label="Previous image"
         >
-          <ChevronLeft size={48} />
+          <ChevronLeft size={56} />
         </button>
       )}
 
-      {/* IMAGE — TRUE FULLSCREEN, NEVER CROPPED */}
+      {/* IMAGE */}
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
+        draggable={false}
+        onDoubleClick={handleDoubleClick}
         className="
-          max-w-full
-          max-h-full
+          max-w-[95vw]
+          max-h-[95vh]
           object-contain
           select-none
+          will-change-transform will-change-opacity
         "
-        draggable={false}
+        style={{
+          opacity: isFading ? 0 : 1,
+          transform: `scale(${scale * (isFading ? 0.985 : 1)})`,
+          transformOrigin: `${origin.x}% ${origin.y}%`,
+          transition: `
+            opacity ${FADE_DURATION}ms ${FADE_EASING},
+            transform ${FADE_DURATION}ms ${FADE_EASING}
+          `
+        }}
       />
 
       {/* Next */}
       {images.length > 1 && (
         <button
           onClick={next}
-          className="absolute right-6 top-1/2 -translate-y-1/2 text-white hover:opacity-80"
+          className="absolute right-6 top-1/2 -translate-y-1/2 text-white hover:opacity-80 transition"
           aria-label="Next image"
         >
-          <ChevronRight size={48} />
+          <ChevronRight size={56} />
         </button>
       )}
 
       {/* Caption */}
       {current.caption && (
-        <div className="absolute bottom-6 text-white text-sm text-center px-4">
+        <div className="absolute bottom-6 text-gray-200 text-sm text-center px-6">
           {current.caption}
         </div>
       )}
     </div>
   );
+
+  return createPortal(content, document.body);
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy } from "lucide-react";
+import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle } from "lucide-react";
 
 const Footer = ({ setCurrentPage }) => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const promoCode = "SAIFI";
+ 
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 300);
@@ -69,8 +69,8 @@ const Footer = ({ setCurrentPage }) => {
 
   const faqs = [
     { q: "Free delivery?", a: "Yes — across our local region for orders above ₹50,000." },
-    { q: "Custom sizes?", a: "Absolutely. We specialize in bespoke pieces tailored to your space." },
-    { q: "Warranty?", a: "A lifetime frame warranty on most wooden pieces + 1 year on upholstery." }
+    { q: "Custom sizes?", a: "Absolutely. We specialize in tailored pices for your space." },
+    { q: "Warranty?", a: "A lifetime frame warranty on most wooden pieces." }
   ];
 
   return (
@@ -101,16 +101,35 @@ const Footer = ({ setCurrentPage }) => {
               Crafted with love. Built for stories. Tap the buttons below to explore — we’ll take you there, smooth as butter.
             </p>
 
-            <div className="flex items-center gap-3">
-              <button aria-label="Facebook" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 transition flex items-center justify-center">
-                <Facebook size={16} />
-              </button>
-              <button aria-label="Instagram" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 transition flex items-center justify-center">
-                <Instagram size={16} />
-              </button>
-              <button aria-label="Twitter" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 transition flex items-center justify-center">
-                <Twitter size={16} />
-              </button>
+             {/* SOCIAL ICONS */}
+            <div className="flex items-center gap-4 mt-4">
+              <a
+                href="https://www.instagram.com/saififurnitures/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="hover:text-white transition"
+              >
+                <Instagram size={18} />
+              </a>
+
+              <a
+                href="https://wa.me/918077441194"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="hover:text-white transition text-sm font-semibold"
+              >
+                <MessageCircle size={18} />
+              </a>
+
+              <a
+                href="mailto:Saifi.furn@gmail.com"
+                aria-label="Email"
+                className="hover:text-white transition"
+              >
+                <Mail size={18} />
+              </a>
             </div>
 
             <div className="mt-4 text-xs text-gray-300">© {new Date().getFullYear()} Saifi Furniture — built with care ❤️</div>
@@ -168,7 +187,7 @@ const Footer = ({ setCurrentPage }) => {
           {/* Newsletter & promo */}
           <div>
             <h4 className="text-lg font-semibold text-amber-50 mb-3">Join the Club</h4>
-            <p className="text-sm text-gray-200 mb-3">Subscribe for design tips, early access & a surprise code 🎁</p>
+            <p className="text-sm text-gray-200 mb-3">Subscribe for design tips, early access & best offers</p>
 
             <form onSubmit={handleSubscribe} className="flex gap-2">
               <input
@@ -184,50 +203,61 @@ const Footer = ({ setCurrentPage }) => {
               </button>
             </form>
 
-            <div className="mt-4 flex items-center gap-3">
-              <div className="bg-white/6 px-3 py-2 rounded-md text-sm text-black-100 select-all">
-                Promo: <strong className="ml-2">{promoCode}</strong>
-              </div>
-              <button onClick={handleCopy} aria-label="Copy code" className="p-2 bg-white/10 rounded-md hover:bg-white/20 transition flex items-center gap-2">
-                <Copy size={16} />
-                <span className="text-xs">{copied ? "Copied!" : "Copy"}</span>
-              </button>
-            </div>
-
-            <div className="mt-3 text-xs text-gray-300">Tip: use promo at checkout. Valid for first 100 customers!</div>
           </div>
 
           {/* Contact + FAQ */}
           <div>
-            <h4 className="text-lg font-semibold text-amber-50 mb-3">Contact & Help</h4>
+            <h4 className="text-lg font-semibold text-amber-50 mb-3">
+              Contact
+            </h4>
 
             <div className="space-y-3 text-sm">
+              {/* ADDRESS */}
               <div className="flex items-start gap-3">
-                <MapPin size={18} className="mt-1 text-blue-200" />
-                <div>
-                  <div className="font-medium text-gray-50">Saifi Furnitures,</div>
-                  <div className="text-gray-300 text-xs">Mangal Parao,<br></br> Haldwani, Uttarakhand - 263139</div>
-                </div>
+                <MapPin size={18} />
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Saifi+Furniture+Mangal+Parao+Haldwani"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition"
+                >
+                  Mangal Parao, Haldwani<br />
+                  Uttarakhand
+                </a>
               </div>
 
+              {/* PHONE */}
               <div className="flex items-start gap-3">
-                <Phone size={18} className="mt-1 text-blue-200" />
-                <div>
-                  <div className="font-medium text-gray-50">Call</div>
-                  <div className="text-gray-300 text-xs">+91 8077441194<br></br>+91 8474986781</div>
-                </div>
+                <Phone size={18} />
+                <a
+                  href="tel:+918077441194"
+                  className="hover:text-white transition"
+                >
+                  +91 8077441194
+                </a>
+              </div>
+                <div className="flex items-start gap-3">
+                <Phone size={18} />
+                <a
+                  href="tel:+918474986781"
+                  className="hover:text-white transition"
+                >
+                  +91 8474986781
+                </a>
               </div>
 
+              {/* EMAIL */}
               <div className="flex items-start gap-3">
-                <Mail size={18} className="mt-1 text-blue-200" />
-                <div>
-                  <div className="font-medium text-gray-50">Email</div>
-                  <div className="text-gray-300 text-xs">info@Saifi-Furniture.com</div>
-                </div>
+                <Mail size={18} />
+                <a
+                  href="mailto:Saifi.furn@gmail.com"
+                  className="hover:text-white transition"
+                >
+                  Saifi.furn@gmail.com
+                </a>
               </div>
             </div>
-
-            <div className="mt-6">
+            {/* <div className="mt-6">
               <h5 className="text-sm text-blue-100 mb-2">Quick FAQs</h5>
               <div className="space-y-2">
                 {faqs.map((f, i) => (
@@ -240,8 +270,9 @@ const Footer = ({ setCurrentPage }) => {
                   </details>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
+
         </div>
       </div>
 
