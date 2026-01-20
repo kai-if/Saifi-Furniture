@@ -8,26 +8,27 @@ export default function GalleryPage() {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const categories = ["all", "sofa", "dining", "bedroom", "office", "decor", "home"];
+  const categories = ["all", "Sofa", "Dining", "Bedroom", "Office", "Decor", "Home"];
 
   const products = [
-    { name: "Modern Sofa", category: "sofa", img: "/images/sofa.PNG" },
-    { name: "Modular Kitchen", category: "dining", img: "/images/kitchen1.JPG" },
-    { name: "King Bed Frame", category: "bedroom", img: "/images/bed.JPG" },
-    { name: "Living Area", category: "home", img: "/images/IMG_2905.JPG" },
-    { name: "Kids Study Table", category: "office", img: "/images/stable.JPG" },
-    { name: "Wall Art", category: "decor", img: "/images/wallart.PNG" },
-    { name: "L-Sofa with Swing Chair", category: "sofa", img: "/images/sofa2.PNG" },
-    { name: "Dressing Table", category: "bedroom", img: "/images/dressing.PNG" },
-    { name: "Cupboard", category: "bedroom", img: "/images/cupboard.JPG" },
-    { name: "Kids Cupboard", category: "bedroom", img: "/images/cupboard1.JPG" },
-    { name: "Single Bed", category: "bedroom", img: "/images/sbed.JPG" },
-    { name: "Wooden Doors", category: "home", img: "/images/door.JPG" },
-    { name: "LED Panel", category: "home", img: "/images/ledp.JPG" },
-    { name: "Vanity", category: "home", img: "/images/vanity.JPG" },
-    { name: "Rocking Chair", category: "office", img: "/images/rchair.PNG" },
-    { name: "Coffee Table", category: "decor", img: "/images/table1.JPG" },
-    { name: "Dining Table Set", category: "dining", img: "/images/dining1.JPG" }
+    { name: "Modern Sofa", category: "Sofa", img: "/images/sofa.PNG" },
+    { name: "Bunk Bed", category: "Bedroom", img: "/images/BunkBed.PNG" },
+    { name: "King Bed Frame", category: "Bedroom", img: "/images/bed.JPG" },
+    { name: "Living Area", category: "Home", img: "/images/IMG_2905.JPG" },
+    { name: "Home Temple", category: "Home", img: "/images/HTemple.PNG" },
+    { name: "Wall Art", category: "Decor", img: "/images/wallart.PNG" },
+    { name: "L-Sofa with Swing Chair", category: "Sofa", img: "/images/sofa2.PNG" },
+    { name: "Dressing Table", category: "Bedroom", img: "/images/dressing.PNG" },
+    { name: "Cupboard", category: "Bedroom", img: "/images/cupboard.JPG" },
+    { name: "Kids Cupboard", category: "Bedroom", img: "/images/cupboard1.JPG" },
+    { name: "Single Bed", category: "Bedroom", img: "/images/sbed.JPG" },
+    { name: "Wooden Doors", category: "Home", img: "/images/door.JPG" },
+    { name: "LED Panel", category: "Home", img: "/images/ledp.JPG" },
+    { name: "Modular Kitchen", category: "Dining", img: "/images/kitchen1.JPG" },
+    { name: "Vanity", category: "Home", img: "/images/vanity.JPG" },
+    { name: "Rocking Chair", category: "Office", img: "/images/rchair.PNG" },
+    { name: "Kids Study Table", category: "Office", img: "/images/stable.JPG" }
+    
   ];
 
   const filteredProducts =

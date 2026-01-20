@@ -18,7 +18,7 @@ export default function App() {
   const pages = {
     home: <HomePage setPage={setCurrentPage} />,
     about: <AboutPage />,
-    services: <ServicesPage />,
+    services: <ServicesPage setCurrentPage={setCurrentPage} />,
     gallery: <GalleryPage />,
     contact: <ContactPage />,
     location: <LocationPage />,

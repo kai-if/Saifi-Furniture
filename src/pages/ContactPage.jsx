@@ -1,95 +1,234 @@
 import React, { useState } from "react";
 import { MapPin, Phone, Mail } from "lucide-react";
-import { isValidEmail } from "../utils/validators";
-//import { Mail } from "lucide-react";
+import { sendEmail } from "../lib/services/emailService";
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
-  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim() || !isValidEmail(formData.email)) newErrors.email = "Valid email is required";
-    if (!formData.message.trim()) newErrors.message = "Message is required";
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length === 0) {
-      alert("Thank you for your message! We will get back to you soon.");
-      setFormData({ name: "", email: "", phone: "", message: "" });
-    }
+
+    sendEmail(formData)
+      .then(() => {
+        alert("Message sent!");
+        setFormData({ name: "", email: "", phone: "", message: "" }); // reset form
+      })
+      .catch((ex) => {
+        alert("Failed to send message.", ex);
+      });
   };
 
   return (
-    <div className="pt-32 pb-20 px-6">
+    <div className="pt-32 pb-24 px-6 animate-fadeInUp">
       <div className="container mx-auto max-w-6xl">
-        <h1 className="text-5xl font-serif font-bold text-sky-900 mb-12 text-center">Get In Touch</h1>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
-            <h2 className="text-2xl font-serif font-bold text-gray-800 mb-6">Send Us a Message</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <input type="text" placeholder="Your Name *" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900 ${errors.name ? "border-red-500" : "border-gray-300"} bg-black text-white`} />
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-              </div>
+        {/* HEADER */}
+        <div className="text-center mb-20">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-sky-900 mb-4">
+            Let’s Create Something Timeless
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Visit our showroom or get in touch for bespoke furniture crafted
+            with precision, elegance, and enduring quality.
+          </p>
+        </div>
 
-              <div>
-                <input type="email" placeholder="Your Email *" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900 ${errors.email ? "border-red-500" : "border-gray-300"} bg-black text-white`} />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-              </div>
+        <div className="grid md:grid-cols-2 gap-16 items-start">
 
-              <div>
-                <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900 bg-black text-white" />
-              </div>
+          {/* CONTACT FORM */}
+          <div
+            className="bg-white rounded-2xl shadow-lg p-10 animate-fadeInUp"
+            style={{ animationDelay: "120ms" }}
+          >
+            <h2 className="text-2xl font-serif font-bold text-gray-800 mb-8">
+              Request a Private Consultation
+            </h2>
 
-              <div>
-                <textarea placeholder="Your Message *" rows="5" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900 ${errors.message ? "border-red-500" : "border-gray-300"} bg-black text-white`}></textarea>
-                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-              </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <input
+                type="text"
+                placeholder="Your Name *"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                required
+                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+              />
 
-              <button type="submit" className="w-full bg-sky-900 text-white px-6 py-3 rounded-md hover:bg-sky-700 transition-colors duration-300">Send Message</button>
+              <input
+                type="email"
+                placeholder="Your Email *"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                required
+                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+              />
+
+              <input
+                type="tel"
+                placeholder="Phone Number *"
+                value={formData.number}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                required
+                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+              />
+
+              <textarea
+                rows="5"
+                placeholder="Tell us about your project *"
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                required
+                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+              />
+
+              <button
+                type="submit"
+                className="w-full bg-sky-900 text-white py-4 rounded-md text-lg hover:bg-sky-800 hover:shadow-xl transition-all"
+              >
+                Send Message
+              </button>
             </form>
           </div>
 
-          <div>
-            <h2 className="text-2xl font-serif font-bold text-gray-800 mb-6">Contact Information</h2>
+          {/* CONTACT INFO */}
+          <div className="space-y-12">
 
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <MapPin className="text-sky-900 mt-1" size={24} />
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">Visit Our Showroom</h3>
-                  <p className="text-gray-600">Mangal Parao<br />Haldwani, Uttarakhand 263139</p>
-                </div>
-              </div>
+            <div
+              className="animate-fadeInUp"
+              style={{ animationDelay: "240ms" }}
+            >
+              <h2 className="text-2xl font-serif font-bold text-gray-800 mb-6">
+                Visit or Reach Us
+              </h2>
 
-              <div className="flex items-start space-x-4">
-                <Phone className="text-sky-900 mt-1" size={24} />
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">Call Us</h3>
-                  <p className="text-gray-600">+91 8077441194<br />Sun-Fri: 9AM - 8PM</p>
-                </div>
-              </div>
+              <div className="space-y-8 text-gray-700">
 
-              <div className="flex items-start space-x-4">
-                <Mail className="text-sky-900 mt-1" size={24} />
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">Email Us</h3>
-                  <p className="text-gray-600">info@Saifi-Furniture.com<br />support@Saifi-Furniture.com</p>
+                {/* ADDRESS */}
+                <div className="flex gap-4">
+                  <MapPin className="text-sky-900 mt-1" size={26} />
+                  <div>
+                    <h3 className="font-semibold text-lg">Showroom</h3>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Saifi+Furniture+Mangal+Parao+Haldwani"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-sky-900 transition"
+                    >
+                      Mangal Parao,<br />
+                      Haldwani, Uttarakhand – 263139
+                    </a>
+                  </div>
                 </div>
+
+                {/* PHONE */}
+                <div className="flex gap-4">
+                  <Phone className="text-sky-900 mt-1" size={26} />
+                  <div>
+                    <h3 className="font-semibold text-lg">Phone</h3>
+                    <a
+                      href="tel:+918077441194"
+                      className="hover:text-sky-900 transition block"
+                    >
+                      +91 8077441194
+                    </a>
+                    <a
+                      href="https://wa.me/918077441194"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-gray-500 hover:text-green-600 transition"
+                    >
+                      Chat on WhatsApp
+                    </a>
+                  </div>
+                </div>
+
+                {/* EMAIL */}
+                <div className="flex gap-4">
+                  <Mail className="text-sky-900 mt-1" size={26} />
+                  <div>
+                    <h3 className="font-semibold text-lg">Email</h3>
+                    <a
+                      href="mailto:Saifi.furn@gmail.com"
+                      className="hover:text-sky-900 transition block"
+                    >
+                      Saifi.furn@gmail.com
+                    </a>
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            <div className="mt-8 bg-sky-50 p-6 rounded-lg">
-              <h3 className="font-serif font-bold text-xl text-sky-900 mb-4">Business Hours</h3>
+            {/* BUSINESS HOURS */}
+            <div
+              className="bg-sky-50 rounded-2xl p-8 hover:shadow-lg transition-all animate-fadeInUp"
+              style={{ animationDelay: "360ms" }}
+            >
+              <h3 className="font-serif font-bold text-xl text-sky-900 mb-4">
+                Business Hours
+              </h3>
               <div className="space-y-2 text-gray-700">
-                <p className="flex justify-between"><span>Sunday - Friday:</span> <span className="font-medium">9:00 AM - 8:00 PM</span></p>
-                <p className="flex justify-between"><span>Saturday:</span> <span className="font-medium">Closed</span></p>
+                <p className="flex justify-between">
+                  <span>Sunday – Friday</span>
+                  <span className="font-medium">9:00 AM – 8:00 PM</span>
+                </p>
+                <p className="flex justify-between">
+                  <span>Saturday</span>
+                  <span className="font-medium">Closed</span>
+                </p>
               </div>
             </div>
+
           </div>
         </div>
+
+        {/* MAP SECTION */}
+        <div className="mt-24 animate-fadeInUp">
+          <h2 className="text-3xl font-serif font-bold text-sky-900 mb-4 text-center">
+            Visit Our Showroom
+          </h2>
+          <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+            Experience our craftsmanship in person. Explore materials,
+            finishes, and custom designs at our showroom.
+          </p>
+
+          <div className="relative overflow-hidden rounded-2xl shadow-xl border border-sky-100 max-w-5xl mx-auto">
+            <iframe
+              title="Saifi Furniture Location"
+              src="https://www.google.com/maps?q=Saifi+Furniture+Mangal+Parao+Haldwani&output=embed"
+              width="100%"
+              height="420"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale-[0.3] hover:grayscale-0 transition duration-500"
+            />
+          </div>
+
+          <div className="text-center mt-4">
+            <a
+              href="https://www.google.com/maps?q=Saifi+Furniture+Mangal+Parao+Haldwani"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-900 font-medium hover:underline"
+            >
+              Open in Google Maps →
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   );

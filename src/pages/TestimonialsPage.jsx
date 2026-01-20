@@ -1,67 +1,293 @@
 import React, { useState } from "react";
-import { Star, ChevronDown } from "lucide-react";
+import { Star, ChevronDown, Upload, ChevronLeft, ChevronRight } from "lucide-react";
 
 const TestimonialsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState("next");
+  const [userReviews, setUserReviews] = useState([]);
+
+  const [form, setForm] = useState({
+    name: "",
+    role: "",
+    text: "",
+    rating: 0,
+    images: []
+  });
+
+  const [errors, setErrors] = useState({});
 
   const testimonials = [
     { name: "Richa", role: "Interior Designer", text: "Saifi Furniture transformed our entire home with their exceptional craftsmanship.", rating: 5 },
     { name: "Michael", role: "Homeowner", text: "From consultation to delivery, the experience was flawless.", rating: 5 },
-    { name: "Sarah", role: "Restaurant Owner", text: "We furnished our entire restaurant with Saifi Furniture pieces.", rating: 5 },
-    { name: "David", role: "Architect", text: "As an architect, I appreciate quality craftsmanship.", rating: 5 },
-    { name: "Kushagra", role: "Business Executive", text: "The custom office furniture they designed for my home workspace is both elegant and functional.", rating: 5 },
-    { name: "Robert", role: "Art Collector", text: "Saifi Furniture is investment-quality.", rating: 5 }
+    { name: "Sarah", role: "Restaurant Owner", text: "We furnished our entire restaurant with Saifi Furniture pieces.", rating: 5 }
   ];
 
-  const nextTestimonial = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  const prevTestimonial = () => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const allTestimonials = [...userReviews, ...testimonials];
+
+  const next = () => {
+    setDirection("next");
+    setCurrentIndex((i) => (i + 1) % allTestimonials.length);
+  };
+
+  const prev = () => {
+    setDirection("prev");
+    setCurrentIndex((i) => (i - 1 + allTestimonials.length) % allTestimonials.length);
+  };
+
+const validate = () => {
+  const newErrors = {};
+
+  if (!form.name.trim()) newErrors.name = "Name is required";
+  if (!form.text.trim()) newErrors.text = "Review is required";
+  if (form.rating === 0) newErrors.rating = "Please select a star rating";
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
+
+  const submitReview = (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setUserReviews([
+      {
+        ...form,
+        rating: Number(form.rating)
+      },
+      ...userReviews
+    ]);
+
+    setForm({
+      name: "",
+      role: "",
+      text: "",
+      rating: 0,
+      images: []
+    });
+
+    setErrors({});
+  };
 
   return (
-    <div className="pt-32 pb-20 px-6">
-      <div className="container mx-auto max-w-4xl">
-        <h1 className="text-5xl font-serif font-bold text-sky-900 mb-8 text-center animate-fadeInUp">What Our Clients Say</h1>
-        <p className="text-center text-xl text-gray-600 mb-16 animate-fadeInUp">Real experiences from satisfied customers who trust Saifi Furniture</p>
+    <div className="pt-32 pb-24 px-6">
+      <div className="container mx-auto max-w-5xl">
 
-        <div className="relative bg-white rounded-lg shadow-xl p-12 animate-fadeInUp">
-          <div className="text-center">
+        {/* HEADER */}
+        <div className="text-center mb-20 animate-fadeInUp">
+          <h1 className="text-5xl font-serif font-bold text-sky-900 mb-4">
+            Client Testimonials
+          </h1>
+          <p className="text-xl text-gray-600">
+            Experiences shared by clients who trust Saifi Furniture
+          </p>
+        </div>
+
+        {/* CAROUSEL */}
+        <div className="relative bg-white rounded-xl shadow-xl p-12 mb-20 overflow-hidden">
+          <div
+            key={currentIndex}
+            className={`transition-all duration-500 ${
+              direction === "next" ? "animate-slideLeft" : "animate-slideRight"
+            }`}
+          >
             <div className="flex justify-center mb-4">
-              {[...Array(testimonials[currentIndex].rating)].map((_, i) => <Star key={i} className="text-amber-500" size={24} />)}
+              {[1, 2, 3, 4, 5].map((r) => (
+                <Star
+                  key={r}
+                  size={24}
+                  className={
+                    r <= allTestimonials[currentIndex].rating
+                      ? "text-amber-500 fill-amber-500"
+                      : "text-amber-500 fill-white"
+                  }
+                />
+              ))}
             </div>
 
-            <p className="text-xl text-gray-700 italic mb-6 leading-relaxed">"{testimonials[currentIndex].text}"</p>
+            <p className="text-xl text-gray-700 italic mb-6">
+              “{allTestimonials[currentIndex].text}”
+            </p>
 
-            <div className="mb-4">
-              <h3 className="text-2xl font-serif font-bold text-sky-900">{testimonials[currentIndex].name}</h3>
-              <p className="text-gray-600">{testimonials[currentIndex].role}</p>
-            </div>
+            <h3 className="text-2xl font-serif font-bold text-sky-900">
+              {allTestimonials[currentIndex].name}
+            </h3>
+            <p className="text-gray-600">{allTestimonials[currentIndex].role}</p>
           </div>
 
-          <div className="flex justify-center items-center space-x-4 mt-8">
-            <button onClick={prevTestimonial} className="bg-sky-900 text-white p-2 rounded-full hover:bg-sky-800 transition-colors duration-300"><ChevronDown className="rotate-90" size={24} /></button>
-
-            <div className="flex space-x-2">
-              {testimonials.map((_, idx) => <button key={idx} onClick={() => setCurrentIndex(idx)} className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? "bg-sky-900 w-8" : "bg-gray-300"}`} />)}
-            </div>
-
-            <button onClick={nextTestimonial} className="bg-sky-900 text-white p-2 rounded-full hover:bg-sky-800 transition-colors duration-300"><ChevronDown className="-rotate-90" size={24} /></button>
+          <div className="flex justify-center gap-6 mt-10">
+            <button onClick={prev} className="p-2 rounded-full bg-sky-900 text-white">
+              <ChevronDown className="rotate-90" />
+            </button>
+            <button onClick={next} className="p-2 rounded-full bg-sky-900 text-white">
+              <ChevronDown className="-rotate-90" />
+            </button>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-16">
-          {testimonials.map((testimonial, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-lg shadow-md animate-fadeInUp">
-              <div className="flex mb-3">{[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="text-amber-500" size={16} />)}</div>
-              <p className="text-gray-700 mb-4 text-sm italic">"{testimonial.text}"</p>
-              <div>
-                <h4 className="font-semibold text-gray-800">{testimonial.name}</h4>
-                <p className="text-sm text-gray-600">{testimonial.role}</p>
-              </div>
+        {/* REVIEW FORM */}
+        <div className="bg-white rounded-xl shadow-lg p-10 mb-20">
+          <h2 className="text-3xl font-serif font-bold text-sky-900 mb-6">
+            Share Your Experience
+          </h2>
+
+          <form onSubmit={submitReview} className="grid gap-5">
+            <div>
+              <input
+                type="text"
+                placeholder="Your Name *"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="text-white placeholder:text-white/60 border rounded-md px-4 py-3 w-full"
+              />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
+
+            <input
+              type="text"
+              placeholder="Role (optional)"
+              value={form.role}
+              onChange={(e) => setForm({ ...form, role: e.target.value })}
+              className="text-white placeholder:text-white/60 border rounded-md px-4 py-3"
+            />
+
+            <div>
+              <textarea
+                placeholder="Your Review *"
+                rows="4"
+                value={form.text}
+                onChange={(e) => setForm({ ...form, text: e.target.value })}
+                className="text-white placeholder:text-white/60 border rounded-md px-4 py-3 w-full"
+              />
+              {errors.text && <p className="text-red-500 text-sm mt-1">{errors.text}</p>}
+            </div>
+
+            {/* STAR INPUT */}
+            <div>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map((r) => (
+                  <Star
+                    key={r}
+                    size={22}
+                    className={`cursor-pointer ${
+                      r <= form.rating
+                        ? "text-amber-500 fill-amber-500"
+                        : "text-amber-500 fill-white"
+                    }`}
+                    onClick={() => setForm({ ...form, rating: r })}
+                  />
+                ))}
+              </div>
+              {errors.rating && <p className="text-red-500 text-sm mt-1">{errors.rating}</p>}
+            </div>
+
+            {/* MULTI IMAGE UPLOAD */}
+            <label className="flex items-center gap-3 text-sm text-gray-600 cursor-pointer">
+              <Upload size={18} />
+              Upload Images (optional)
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                hidden
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    images: Array.from(e.target.files).map((f) =>
+                      URL.createObjectURL(f)
+                    )
+                  })
+                }
+              />
+            </label>
+
+            <button
+              type="submit"
+              className="bg-sky-900 text-white px-6 py-3 rounded-md hover:bg-sky-800 transition"
+            >
+              Submit Review
+            </button>
+          </form>
+        </div>
+
+        {/* REVIEW GRID */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {allTestimonials.map((t, idx) => (
+            <ReviewCard key={idx} review={t} />
           ))}
         </div>
+
       </div>
     </div>
   );
 };
+
+const ReviewCard = ({ review }) => {
+  const [imgIdx, setImgIdx] = useState(0);
+  if (!review.images || review.images.length === 0) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <StarRow rating={review.rating} />
+        <p className="italic text-gray-700 mb-4">“{review.text}”</p>
+        <h4 className="font-semibold">{review.name}</h4>
+        <p className="text-sm text-gray-600">{review.role}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <StarRow rating={review.rating} />
+      <p className="italic text-gray-700 mb-4">“{review.text}”</p>
+
+      <div className="relative overflow-hidden rounded-md">
+        <img
+          src={review.images[imgIdx]}
+          alt="review"
+          className="w-full h-56 object-cover transition-all duration-300"
+        />
+        {review.images.length > 1 && (
+          <>
+            <button
+              onClick={() =>
+                setImgIdx((i) => (i - 1 + review.images.length) % review.images.length)
+              }
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
+            >
+              <ChevronLeft />
+            </button>
+            <button
+              onClick={() =>
+                setImgIdx((i) => (i + 1) % review.images.length)
+              }
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
+            >
+              <ChevronRight />
+            </button>
+          </>
+        )}
+      </div>
+
+      <h4 className="font-semibold mt-4">{review.name}</h4>
+      <p className="text-sm text-gray-600">{review.role}</p>
+    </div>
+  );
+};
+
+const StarRow = ({ rating }) => (
+  <div className="flex mb-2">
+    {[1, 2, 3, 4, 5].map((r) => (
+      <Star
+        key={r}
+        size={16}
+        className={
+          r <= rating
+            ? "text-amber-500 fill-amber-500"
+            : "text-amber-500 fill-white"
+        }
+      />
+    ))}
+  </div>
+);
 
 export default TestimonialsPage;
