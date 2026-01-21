@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle } from "lucide-react";
 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPPP72wABOChyBmpR-scy1RWzt-kec10y5iRrHtNplPTfZm7njq8xk9H6p9Ml8JHF6/exec";
+
 const Footer = ({ setCurrentPage }) => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [loading, setLoading] = useState(false);
  
 
   useEffect(() => {
@@ -35,16 +38,38 @@ const Footer = ({ setCurrentPage }) => {
     }, 120);
   };
 
-  const handleSubscribe = (e) => {
+const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      alert("Please enter a valid email to subscribe 😊");
+
+    if (!email) {
+      alert("Please enter an email address");
       return;
     }
-    setSubscribed(true);
-    setEmail("");
-    // in a real app: call API here
+
+    setLoading(true);
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // REQUIRED for Google Apps Script
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          source: "footer",
+        }),
+      });
+
+      alert("Subscribed successfully!");
+      setEmail("");
+    } catch (err) {
+      alert("Network error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   const handleCopy = async () => {
     try {

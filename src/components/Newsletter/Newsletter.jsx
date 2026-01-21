@@ -1,36 +1,80 @@
 import React, { useState } from "react";
 import { Send } from "lucide-react";
-import { isValidEmail } from "../../utils/validators";
 
-const Newsletter = () => {
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwPPP72wABOChyBmpR-scy1RWzt-kec10y5iRrHtNplPTfZm7njq8xk9H6p9Ml8JHF6/exec";
+
+export default function Newsletter() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const isValidEmail = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email && isValidEmail(email)) {
+
+    if (!email || !isValidEmail(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // ✅ IMPORTANT
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          source: "newsletter",
+        }),
+      });
+
       alert("Thank you for subscribing!");
       setEmail("");
-    } else {
-      alert("Please enter a valid email.");
+    } catch (error) {
+      alert("Network error. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
-//"bg-gradient-to-tr from-zinc-950 via-sky-950 to-gray-800 text-gray-100 relative mt-16"
-  return (
-    <section className="bg-gradient-to-tr from-zinc-950 via-sky-950 to-gray-800 text-gray-100 py-16 px-6" >
-      <div className="container mx-auto max-w-4xl text-center">
-        <h2 className="text-4xl font-serif font-bold mb-4">Stay Inspired</h2>
-        <p className="text-xl mb-8">Subscribe to our newsletter for design tips, exclusive offers, and new arrivals</p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-          <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 px-6 py-4 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-black text-white" required />
-          <button type="submit" className="bg-white text-sky-900 px-8 py-4 rounded-md font-semibold hover:bg-sky-50 transition-colors duration-300 flex items-center justify-center space-x-2">
-            <span>Subscribe</span>
+  return (
+    <section className="relative bg-gradient-to-b from-sky-950 to-sky-900 py-24 px-6 text-white">
+      <div className="container mx-auto text-center max-w-2xl">
+        <h2 className="text-4xl font-serif font-bold mb-4">
+          Stay Inspired
+        </h2>
+        <p className="text-lg text-sky-100 mb-10">
+          Subscribe to our newsletter for design tips, exclusive offers, and new arrivals
+        </p>
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full sm:w-96 px-5 py-4 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-sky-400"
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="flex items-center justify-center gap-2 px-8 py-4 rounded-md bg-white text-sky-900 font-semibold hover:bg-sky-100 transition disabled:opacity-60"
+          >
+            {loading ? "Submitting..." : "Subscribe"}
             <Send size={18} />
           </button>
         </form>
       </div>
     </section>
   );
-};
-
-export default Newsletter;
+}
