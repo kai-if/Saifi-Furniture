@@ -1,0 +1,60 @@
+.service-flip {
+  perspective: 1600px;
+}
+
+.service-inner {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.service-flip.flipped .service-inner {
+  transform: rotateY(180deg);
+}
+
+.service-front,
+.service-back {
+  position: absolute;
+  inset: 0;
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  backface-visibility: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+}
+
+.service-back {
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+/* Progress Bar */
+.service-progress {
+  height: 3px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.service-progress span {
+  display: block;
+  height: 100%;
+  background: #0c4a6e;
+  transition: width 0.2s ease;
+}
+
+/* Scroll area */
+.service-back-content {
+  max-height: 330px;
+  overflow-y: auto;
+  padding-top: 1.5rem;
+  padding-right: 6px;
+}
+
+.service-back-content::-webkit-scrollbar {
+  width: 4px;
+}
+.service-back-content::-webkit-scrollbar-thumb {
+  background: rgba(12, 74, 110, 0.4);
+  border-radius: 10px;
+}

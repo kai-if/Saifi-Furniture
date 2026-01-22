@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "The Art of Timeless Furniture",
+    "excerpt": "Why well-crafted furniture never goes out of style and how to invest wisely.",
+    "coverImage": "public/assets/blogPhotos/time.jpg",
+    "author": "Saifi Furniture",
+    "date": "2024-11-10",
+    "content": [
+      "Timeless furniture is not about trends, but about balance, proportion, and quality craftsmanship.",
+      "At Saifi Furniture, every piece is designed to age gracefully with your home.",
+      "Natural materials like solid wood and handcrafted finishes ensure durability and elegance.",
+      "When you choose timeless furniture, you invest in comfort, sustainability, and lasting beauty.",
+      "Design that transcends time brings harmony and warmth into living spaces."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Choosing the Right Sofa for Your Living Room",
+    "excerpt": "Comfort meets design — learn how to select the perfect sofa for your space.",
+    "coverImage": "public/assets/blogPhotos/right.webp",
+    "author": "Interior Design Team",
+    "date": "2024-11-18",
+    "content": [
+      "A sofa is the heart of your living room and defines how the space feels.",
+      "Consider room size, seating needs, and fabric durability before purchasing.",
+      "Neutral tones offer versatility, while bold colors create statement interiors.",
+      "Cushion density and frame quality directly affect long-term comfort.",
+      "The right sofa blends function, aesthetics, and personal style."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Modular Kitchens: Smart Living Redefined",
+    "excerpt": "Discover how modular kitchens improve efficiency, aesthetics, and lifestyle.",
+    "coverImage": "public/assets/images/Kitchen.jpg",
+    "author": "Design Studio",
+    "date": "2024-12-02",
+    "content": [
+      "Modern homes demand smart and flexible kitchen solutions.",
+      "Modular kitchens optimize space with intelligent storage designs.",
+      "Custom layouts ensure workflow efficiency and ease of movement.",
+      "Premium finishes elevate the overall appearance of the kitchen.",
+      "A modular kitchen is both a functional workspace and a design statement."
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Bedroom Furniture That Enhances Rest",
+    "excerpt": "Create a serene retreat with thoughtfully designed bedroom furniture.",
+    "coverImage": "public/assets/blogPhotos/bedroom.avif",
+    "author": "Saifi Furniture",
+    "date": "2024-12-12",
+    "content": [
+      "Bedrooms should reflect calm, comfort, and personal expression.",
+      "Solid wood beds provide stability and long-lasting strength.",
+      "Minimal designs promote visual relaxation and better sleep.",
+      "Smart storage keeps spaces clutter-free and peaceful.",
+      "The right bedroom furniture enhances both rest and lifestyle."
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Craftsmanship Behind Custom Furniture",
+    "excerpt": "A behind-the-scenes look at how bespoke furniture comes to life.",
+    "coverImage": "public/assets/blogPhotos/craft.jpg",
+    "author": "Workshop Team",
+    "date": "2024-12-20",
+    "content": [
+      "Custom furniture begins with understanding client vision.",
+      "Every measurement is precise and purpose-driven.",
+      "Skilled artisans bring raw materials to refined forms.",
+      "Hand-finishing ensures uniqueness in every piece.",
+      "Craftsmanship is the soul of bespoke furniture."
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Wood Types Explained: What Works Best?",
+    "excerpt": "Understand different wood types and their ideal use cases.",
+    "coverImage": "public/assets/blogPhotos/types.jpg",
+    "author": "Material Experts",
+    "date": "2025-01-05",
+    "content": [
+      "Sheesham wood offers strength and rich grain patterns.",
+      "Teak wood is valued for durability and moisture resistance.",
+      "Engineered wood provides cost-effective versatility.",
+      "Each wood type serves a different functional purpose.",
+      "Choosing the right material ensures longevity and beauty."
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Luxury Interiors on a Practical Budget",
+    "excerpt": "Design tips to achieve premium interiors without overspending.",
+    "coverImage": "public/assets/blogPhotos/lux.avif",
+    "author": "Interior Consultants",
+    "date": "2025-01-12",
+    "content": [
+      "Luxury is defined by thoughtful design, not excess.",
+      "Focus on statement furniture pieces.",
+      "Neutral palettes create elegant foundations.",
+      "Invest in quality over quantity.",
+      "Smart planning leads to refined interiors within budget."
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Maintaining Furniture for Long Life",
+    "excerpt": "Care tips to keep your furniture looking new for years.",
+    "coverImage": "public/assets/blogPhotos/maintain.jpg",
+    "author": "Care Specialists",
+    "date": "2025-01-20",
+    "content": [
+      "Regular dusting prevents surface damage.",
+      "Use recommended cleaners for different materials.",
+      "Avoid prolonged exposure to sunlight.",
+      "Periodic polishing preserves finish and texture.",
+      "Proper care ensures furniture ages beautifully."
+    ]
+  }
+]

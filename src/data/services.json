@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Custom Furniture Design",
+    "shortDesc": "Bespoke furniture crafted to reflect your lifestyle.",
+    "longDesc": "Our custom furniture design service blends craftsmanship with creativity. From initial concept to final installation, we work closely with you to design pieces that perfectly align with your space, taste, and functional needs. Every detail is thoughtfully considered.",
+    "features": [
+      "3D Visualization",
+      "Material Selection",
+      "Unlimited Revisions",
+      "Expert Consultation"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Delivery & Installation",
+    "shortDesc": "White-glove delivery and professional installation.",
+    "longDesc": "We ensure your furniture reaches your home safely and is installed with precision. Our trained professionals handle everything from careful transportation to perfect placement, ensuring a seamless and stress-free experience.",
+    "features": [
+      "Free Delivery",
+      "Professional Assembly",
+      "Old Furniture Removal",
+      "Placement Assistance"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Restoration & Repairs",
+    "shortDesc": "Restore the beauty of your cherished furniture.",
+    "longDesc": "Our restoration experts revive aged or damaged furniture while preserving its original character. From structural repairs to refinishing and upholstery, we bring timeless pieces back to life with unmatched attention to detail.",
+    "features": [
+      "Wood Refinishing",
+      "Upholstery Repair",
+      "Structural Restoration",
+      "Color Matching"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Interior Consultation",
+    "shortDesc": "Professional guidance for cohesive interiors.",
+    "longDesc": "Our interior consultation service helps you curate harmonious spaces. We assist with layout planning, color coordination, furniture selection, and styling guidance—ensuring your home feels refined, balanced, and uniquely yours.",
+    "features": [
+      "Space Planning",
+      "Style Guidance",
+      "Color Coordination",
+      "Furniture Selection"
+    ]
+  }
+]

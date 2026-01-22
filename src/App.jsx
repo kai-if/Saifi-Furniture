@@ -5,13 +5,13 @@ import Chatbot from "./components/Chatbot/Chatbot";
 import Newsletter from "./components/Newsletter/Newsletter";
 import HomePage from "./pages/HomePage/HomePage";
 import AboutPage from "./pages/AboutPage";
-import ServicesPage from "./pages/ServicesPage";
+import ServicesPage from "./pages/ServicesPage/ServicesPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import ContactPage from "./pages/ContactPage";
 import LocationPage from "./pages/LocationPage";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import OffersPage from "./pages/OffersPage";
-import BlogPage from "./pages/BlogPage";
+import BlogPage from "./pages/BlogPage/BlogPage";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
