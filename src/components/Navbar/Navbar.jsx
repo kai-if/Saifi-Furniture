@@ -10,8 +10,9 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const servicesTimeout = useRef(null);
+  const isMobile = window.innerWidth < 768;
 
-  const isCollapsed = isScrolled && !isHovered;
+  const isCollapsed = !isMobile && isScrolled && !isHovered;
 
   const navLinks = [
     { id: "home", label: "Home" },
@@ -173,14 +174,23 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
         </div>
 
         {/* MOBILE MENU BUTTON — HIDDEN WHEN COLLAPSED */}
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          className={`md:hidden p-2 transition-all ${
-            isCollapsed ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
-        >
-          <Menu size={22} />
-        </button>
+       {/* MOBILE MENU BUTTON — ALWAYS VISIBLE ON MOBILE */}
+<button
+  onClick={() => setIsMenuOpen(true)}
+  className="
+    md:hidden
+    p-2
+    rounded-full
+    text-gray-800 dark:text-gray-100
+    hover:bg-gray-100 dark:hover:bg-gray-800
+    transition-all duration-200
+    active:scale-95
+  "
+  aria-label="Open menu"
+>
+  <Menu size={22} strokeWidth={1.75} />
+</button>
+
       </div>
 
       {/* MOBILE MENU */}
