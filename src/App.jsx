@@ -12,6 +12,8 @@ import LocationPage from "./pages/LocationPage";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import OffersPage from "./pages/OffersPage";
 import BlogPage from "./pages/BlogPage/BlogPage";
+import { Analytics } from "@vercel/analytics/react";
+
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -38,6 +40,7 @@ export default function App() {
       <Newsletter />
       <Footer setCurrentPage={setCurrentPage} />
       <Chatbot />
+      <Analytics />
     </div>
   );
 }
