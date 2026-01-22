@@ -215,7 +215,7 @@ const handleSubscribe = async (e) => {
             <h4 className="text-lg font-semibold text-amber-50 mb-3">Join the Club</h4>
             <p className="text-sm text-gray-200 mb-3">Subscribe for design tips, early access & best offers</p>
 
-            <form onSubmit={handleSubscribe} className="flex gap-2">
+            <form onSubmit={handleSubscribe} className="flex flex-wrap gap-2">
               <input
                 type="email"
                 aria-label="newsletter email"
