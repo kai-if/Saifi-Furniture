@@ -3,7 +3,7 @@
     "id": 1,
     "title": "The Art of Timeless Furniture",
     "excerpt": "Why well-crafted furniture never goes out of style and how to invest wisely.",
-    "coverImage": "public/assets/blogPhotos/time.jpg",
+    "coverImage": "public/blogPhotos/time.jpg",
     "author": "Saifi Furniture",
     "date": "2024-11-10",
     "content": [
@@ -18,7 +18,7 @@
     "id": 2,
     "title": "Choosing the Right Sofa for Your Living Room",
     "excerpt": "Comfort meets design — learn how to select the perfect sofa for your space.",
-    "coverImage": "public/assets/blogPhotos/right.webp",
+    "coverImage": "public/blogPhotos/right.webp",
     "author": "Interior Design Team",
     "date": "2024-11-18",
     "content": [
@@ -33,7 +33,7 @@
     "id": 3,
     "title": "Modular Kitchens: Smart Living Redefined",
     "excerpt": "Discover how modular kitchens improve efficiency, aesthetics, and lifestyle.",
-    "coverImage": "public/assets/images/Kitchen.jpg",
+    "coverImage": "public/blogPhotos/Kitchen.jpg",
     "author": "Design Studio",
     "date": "2024-12-02",
     "content": [
@@ -48,7 +48,7 @@
     "id": 4,
     "title": "Bedroom Furniture That Enhances Rest",
     "excerpt": "Create a serene retreat with thoughtfully designed bedroom furniture.",
-    "coverImage": "public/assets/blogPhotos/bedroom.avif",
+    "coverImage": "public/blogPhotos/bedroom.avif",
     "author": "Saifi Furniture",
     "date": "2024-12-12",
     "content": [
@@ -63,7 +63,7 @@
     "id": 5,
     "title": "Craftsmanship Behind Custom Furniture",
     "excerpt": "A behind-the-scenes look at how bespoke furniture comes to life.",
-    "coverImage": "public/assets/blogPhotos/craft.jpg",
+    "coverImage": "public/blogPhotos/craft.jpg",
     "author": "Workshop Team",
     "date": "2024-12-20",
     "content": [
@@ -78,7 +78,7 @@
     "id": 6,
     "title": "Wood Types Explained: What Works Best?",
     "excerpt": "Understand different wood types and their ideal use cases.",
-    "coverImage": "public/assets/blogPhotos/types.jpg",
+    "coverImage": "public/blogPhotos/types.jpg",
     "author": "Material Experts",
     "date": "2025-01-05",
     "content": [
@@ -93,7 +93,7 @@
     "id": 7,
     "title": "Luxury Interiors on a Practical Budget",
     "excerpt": "Design tips to achieve premium interiors without overspending.",
-    "coverImage": "public/assets/blogPhotos/lux.avif",
+    "coverImage": "public/blogPhotos/lux.avif",
     "author": "Interior Consultants",
     "date": "2025-01-12",
     "content": [
@@ -108,7 +108,7 @@
     "id": 8,
     "title": "Maintaining Furniture for Long Life",
     "excerpt": "Care tips to keep your furniture looking new for years.",
-    "coverImage": "public/assets/blogPhotos/maintain.jpg",
+    "coverImage": "public/blogPhotos/maintain.jpg",
     "author": "Care Specialists",
     "date": "2025-01-20",
     "content": [
