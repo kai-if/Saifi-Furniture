@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle } from "lucide-react";
+import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle} from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPPP72wABOChyBmpR-scy1RWzt-kec10y5iRrHtNplPTfZm7njq8xk9H6p9Ml8JHF6/exec";
 
@@ -145,7 +146,7 @@ const handleSubscribe = async (e) => {
                 aria-label="WhatsApp"
                 className="hover:text-white transition text-sm font-semibold"
               >
-                <MessageCircle size={18} />
+                <FaWhatsapp size={18} />
               </a>
 
               <a
