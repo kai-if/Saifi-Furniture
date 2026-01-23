@@ -46,7 +46,7 @@ const Chatbot = () => {
           </div>
 
           <div className="p-4 border-t flex space-x-2">
-            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900" />
+            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900" />
             <button onClick={handleSend} className="bg-sky-900 text-white p-2 rounded-md hover:bg-sky-800 transition-colors" aria-label="Send">
               <Send size={20} />
             </button>
