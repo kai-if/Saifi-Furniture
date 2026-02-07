@@ -138,7 +138,13 @@ const validate = () => {
                 placeholder="Your Name *"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="text-white placeholder:text-white/60 border rounded-md px-4 py-3 w-full"
+                className=" w-full px-4 py-3 
+                 text-black dark:text-white 
+                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 border border-gray-300 dark:border-gray-600 
+                 rounded-md 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 transition"
               />
               {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
@@ -148,7 +154,13 @@ const validate = () => {
               placeholder="Role (optional)"
               value={form.role}
               onChange={(e) => setForm({ ...form, role: e.target.value })}
-              className="text-white placeholder:text-white/60 border rounded-md px-4 py-3"
+                className=" w-full px-4 py-3 
+                 text-black dark:text-white 
+                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 border border-gray-300 dark:border-gray-600 
+                 rounded-md 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 transition"
             />
 
             <div>
@@ -157,7 +169,13 @@ const validate = () => {
                 rows="4"
                 value={form.text}
                 onChange={(e) => setForm({ ...form, text: e.target.value })}
-                className="text-white placeholder:text-white/60 border rounded-md px-4 py-3 w-full"
+                className=" w-full px-4 py-3 
+                 text-black dark:text-white 
+                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 border border-gray-300 dark:border-gray-600 
+                 rounded-md 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 transition"
               />
               {errors.text && <p className="text-red-500 text-sm mt-1">{errors.text}</p>}
             </div>
