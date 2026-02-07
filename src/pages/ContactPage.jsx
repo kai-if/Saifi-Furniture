@@ -58,7 +58,13 @@ const handleSubmit = (e) => {
                   setFormData({ ...formData, name: e.target.value })
                 }
                 required
-                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+                className=" w-full px-4 py-3 
+                 text-black dark:text-white 
+                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 border border-gray-300 dark:border-gray-600 
+                 rounded-md 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 transition"
               />
 
               <input
@@ -69,7 +75,13 @@ const handleSubmit = (e) => {
                   setFormData({ ...formData, email: e.target.value })
                 }
                 required
-                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+                className=" w-full px-4 py-3 
+                 text-black dark:text-white 
+                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 border border-gray-300 dark:border-gray-600 
+                 rounded-md 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 transition"
               />
 
               <input
@@ -80,7 +92,13 @@ const handleSubmit = (e) => {
                   setFormData({ ...formData, phone: e.target.value })
                 }
                 required
-                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+                className=" w-full px-4 py-3 
+                 text-black dark:text-white 
+                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 border border-gray-300 dark:border-gray-600 
+                 rounded-md 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 transition"
               />
 
               <textarea
@@ -91,7 +109,13 @@ const handleSubmit = (e) => {
                   setFormData({ ...formData, message: e.target.value })
                 }
                 required
-                className="w-full px-4 py-3 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-800 transition"
+                className=" w-full px-4 py-3 
+                 text-black dark:text-white 
+                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 border border-gray-300 dark:border-gray-600 
+                 rounded-md 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 transition"
               />
 
               <button

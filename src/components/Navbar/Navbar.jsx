@@ -55,6 +55,8 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
     setCurrentPage(id);
     setIsMenuOpen(false);
     setServicesOpen(false);
+    // 👇 Force scroll to top on navigation
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const openServices = () => {
@@ -78,26 +80,26 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
 
-        {/* LOGO — TEXT ONLY, ALWAYS FULL */}
+        {/* LOGO */}
         <div
-  onClick={() => handleNavigate("home")}
-  role="link"
-  aria-label="Go to homepage"
-  className={`
-    cursor-pointer select-none
-    font-serif font-bold tracking-wide
-    text-blue-300
-    transition-all duration-300
-    ${isCollapsed ? "text-lg" : "text-2xl md:text-3xl"}
-  `}
->
-  SAIFI{" "}
-  <span className="font-normal text-gray-600 dark:text-gray-300">
-    Furniture
-  </span>
-</div>
+          onClick={() => handleNavigate("home")}
+          role="link"
+          aria-label="Go to homepage"
+          className={`
+            cursor-pointer select-none
+            font-serif font-bold tracking-wide
+            text-blue-300
+            transition-all duration-300
+            ${isCollapsed ? "text-lg" : "text-2xl md:text-3xl"}
+          `}
+        >
+          SAIFI{" "}
+          <span className="font-normal text-gray-600 dark:text-gray-300">
+            Furniture
+          </span>
+        </div>
 
-        {/* DESKTOP NAV — HIDDEN WHEN COLLAPSED */}
+        {/* DESKTOP NAV */}
         <div
           className={`hidden md:flex items-center gap-6 transition-all duration-300
             ${isCollapsed ? "opacity-0 pointer-events-none translate-y-[-6px]" : "opacity-100 translate-y-0"}`}
@@ -173,93 +175,80 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
           </button>
         </div>
 
-        {/* MOBILE MENU BUTTON — HIDDEN WHEN COLLAPSED */}
-       {/* MOBILE MENU BUTTON — ALWAYS VISIBLE ON MOBILE */}
-<button
-  onClick={() => setIsMenuOpen(true)}
-  className="
-    md:hidden
-    p-2
-    rounded-full
-    text-gray-800 dark:text-gray-100
-    hover:bg-gray-100 dark:hover:bg-gray-800
-    transition-all duration-200
-    active:scale-95
-  "
-  aria-label="Open menu"
->
-  <Menu size={22} strokeWidth={1.75} />
-</button>
-
+        {/* MOBILE MENU BUTTON */}
+        <button
+          onClick={() => setIsMenuOpen(true)}
+          className="
+            md:hidden
+            p-2
+            rounded-full
+            text-gray-800 dark:text-gray-100
+            hover:bg-gray-100 dark:hover:bg-gray-800
+            transition-all duration-200
+            active:scale-95
+          "
+          aria-label="Open menu"
+        >
+          <Menu size={22} strokeWidth={1.75} />
+        </button>
       </div>
 
       {/* MOBILE MENU */}
-      {/* MOBILE DROPDOWN MENU */}
-{isMenuOpen && !isCollapsed && (
-  <div className="fixed inset-0 z-40">
-    {/* Overlay */}
-    <div
-      className="absolute inset-0 bg-black/30 backdrop-blur-sm"
-      onClick={() => setIsMenuOpen(false)}
-    />
-
-    {/* Dropdown Panel */}
-    <div
-      className="
-        absolute top-full left-0 right-0
-        bg-white dark:bg-gray-900
-        shadow-xl
-        max-h-[75vh]
-        overflow-y-auto
-        animate-dropdown
-      "
-    >
-      <nav className="px-6 py-4 space-y-1">
-        {navLinks.map((link) => (
-          <button
-            key={link.id}
-            onClick={() => handleNavigate(link.id)}
+      {isMenuOpen && !isCollapsed && (
+        <div className="fixed inset-0 z-40">
+          <div
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+            onClick={() => setIsMenuOpen(false)}
+          />
+          <div
             className="
-              group
-              w-full text-left
-              py-3
-              text-base font-medium
-              text-gray-800 dark:text-gray-100
-              transition-all duration-200
-              hover:text-blue-400
-              active:opacity-70
+              absolute top-full left-0 right-0
+              bg-white dark:bg-gray-900
+              shadow-xl
+              max-h-[75vh]
+              overflow-y-auto
+              animate-dropdown
             "
           >
-            <span className="relative inline-block">
-              {link.label}
-
-              {/* Underline reveal */}
-              <span
-                className="
-                  absolute left-0 -bottom-1
-                  h-[1px] w-0
-                  bg-blue-300
-                  transition-all duration-300
-                  group-hover:w-full
-                "
-              />
-            </span>
-          </button>
-        ))}
-      </nav>
-
-      {/* Divider */}
-      <div className="h-px bg-gray-200 dark:bg-gray-700 mx-6" />
-
-      {/* Footer note */}
-      <div className="px-6 py-4 text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-        Crafted furniture & interior solutions<br />
-        Designed for timeless living
-      </div>
-    </div>
-  </div>
-)}
-
+            <nav className="px-6 py-4 space-y-1">
+              {navLinks.map((link) => (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavigate(link.id)}
+                  className="
+                    group
+                    w-full text-left
+                    py-3
+                    text-base font-medium
+                    text-gray-800 dark:text-gray-100
+                    transition-all duration-200
+                    hover:text-blue-400
+                    active:opacity-70
+                  "
+                >
+                  <span className="relative inline-block">
+                    {link.label}
+                    <span
+                      className="
+                        absolute left-0 -bottom-1
+                        h-[1px] w-0
+                        bg-blue-300
+                        transition-all duration-300
+                        group-hover:w-full
+                      "
+                    />
+                  </span>
+                </button>
+              ))}
+            </nav>
+            <div className="h-px bg-gray-200 dark:bg-gray-700 mx-6" />
+            <div className="px-6 py-4 text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+              Crafted furniture & interior solutions<br />
+              Designed for timeless living
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

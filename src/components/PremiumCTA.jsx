@@ -9,7 +9,11 @@ export default function PremiumCTA({ onContact }) {
         Let us craft something exceptional for you.
       </p>
       <button
-        onClick={onContact}
+        onClick={() => {
+          onContact();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          
+        }}
         className="
           px-10 py-4
           bg-sky-200 text-stone-900

@@ -91,12 +91,13 @@ export default function HomePage({ setPage }) {
             <button
               onClick={() => setPage("contact")}
               className="
-                border border-stone-200 text-stone-100
-                px-10 py-4 rounded-md
-                hover:bg-stone-100/10
-                transition-all duration-300
-              "
-            >
+                   border border-stone-200 
+                   text-black dark:text-stone-100
+                   px-10 py-4 rounded-md
+                   hover:bg-stone-100/10 dark:hover:bg-stone-700/30
+                   transition-all duration-300
+                  "
+              >
               Get a Quote
             </button>
           </div>
@@ -202,7 +203,10 @@ export default function HomePage({ setPage }) {
       {/* =====================================================
           PREMIUM CTA
       ====================================================== */}
-      <PremiumCTA onContact={() => setPage("contact")} />
+      <PremiumCTA onContact={() => {
+        setPage("contact");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }} />
 
     </div>
   );

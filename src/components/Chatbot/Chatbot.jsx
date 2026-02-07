@@ -30,7 +30,8 @@ const Chatbot = () => {
         <div className="fixed bottom-24 right-6 w-80 bg-white rounded-lg shadow-2xl z-50 animate-fadeInUp">
           <div className="bg-sky-900 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Chat with Us</h3>
-            <button onClick={() => setShow(false)} aria-label="Close chat">
+            <button onClick={() => setShow(false)} aria-label="Close chat"
+              className="px-3 py-2 text-black dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-900">
               <X size={20} />
             </button>
           </div>
@@ -46,7 +47,11 @@ const Chatbot = () => {
           </div>
 
           <div className="p-4 border-t flex space-x-2">
-            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 text-white placeholder:text-white/60 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-900" />
+            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 
+             text-black dark:text-white 
+             placeholder:text-gray-500 dark:placeholder:text-white/60 
+             border border-gray-300 rounded-md 
+             focus:outline-none focus:ring-2 focus:ring-sky-900" />
             <button onClick={handleSend} className="bg-sky-900 text-white p-2 rounded-md hover:bg-sky-800 transition-colors" aria-label="Send">
               <Send size={20} />
             </button>
