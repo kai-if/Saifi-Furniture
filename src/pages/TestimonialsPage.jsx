@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Star, ChevronDown, Upload, ChevronLeft, ChevronRight } from "lucide-react";
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiwGYMPqil--DEcvpng-Ok4xSt4vuddYHhM_l4TGrb2WC1JfEXEDHI8fLGbKtxA4o21g/exec";
 
 const TestimonialsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,6 +16,7 @@ const TestimonialsPage = () => {
     images: []
   });
 
+  const [imagePreviews, setImagePreviews] = useState([]); // ✅ PREVIEW STATE
   const [errors, setErrors] = useState({});
 
   const testimonials = [
@@ -22,50 +25,79 @@ const TestimonialsPage = () => {
     { name: "Sarah", role: "Restaurant Owner", text: "We furnished our entire restaurant with Saifi Furniture pieces.", rating: 5 }
   ];
 
+  /* ---------------- LOAD REVIEWS ---------------- */
+  useEffect(() => {
+    fetch(GOOGLE_SCRIPT_URL)
+      .then(res => res.json())
+      .then(data => setUserReviews(data.reverse()))
+      .catch(() => {});
+  }, []);
+
   const allTestimonials = [...userReviews, ...testimonials];
 
   const next = () => {
     setDirection("next");
-    setCurrentIndex((i) => (i + 1) % allTestimonials.length);
+    setCurrentIndex(i => (i + 1) % allTestimonials.length);
   };
 
   const prev = () => {
     setDirection("prev");
-    setCurrentIndex((i) => (i - 1 + allTestimonials.length) % allTestimonials.length);
+    setCurrentIndex(i => (i - 1 + allTestimonials.length) % allTestimonials.length);
   };
 
-const validate = () => {
-  const newErrors = {};
+  const validate = () => {
+    const newErrors = {};
+    if (!form.name.trim()) newErrors.name = "Name is required";
+    if (!form.text.trim()) newErrors.text = "Review is required";
+    if (form.rating === 0) newErrors.rating = "Please select a star rating";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-  if (!form.name.trim()) newErrors.name = "Name is required";
-  if (!form.text.trim()) newErrors.text = "Review is required";
-  if (form.rating === 0) newErrors.rating = "Please select a star rating";
+  /* ---------------- IMAGE → BASE64 ---------------- */
+  const toBase64 = file =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () =>
+        resolve({
+          base64: reader.result.split(",")[1],
+          name: file.name,
+          type: file.type
+        });
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
 
-  setErrors(newErrors);
-  return Object.keys(newErrors).length === 0;
-};
-
-
-  const submitReview = (e) => {
+  /* ---------------- SUBMIT REVIEW ---------------- */
+  const submitReview = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    setUserReviews([
-      {
-        ...form,
-        rating: Number(form.rating)
-      },
-      ...userReviews
-    ]);
+    const imagePayload = await Promise.all(
+      form.images.map(file => toBase64(file))
+    );
 
-    setForm({
-      name: "",
-      role: "",
-      text: "",
-      rating: 0,
-      images: []
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: form.name,
+        role: form.role,
+        review: form.text,
+        rating: form.rating,
+        images: imagePayload
+      })
     });
 
+    // reload reviews
+    fetch(GOOGLE_SCRIPT_URL)
+      .then(res => res.json())
+      .then(data => setUserReviews(data.reverse()));
+
+    // reset
+    setForm({ name: "", role: "", text: "", rating: 0, images: [] });
+    setImagePreviews([]);
     setErrors({});
   };
 
@@ -92,15 +124,13 @@ const validate = () => {
             }`}
           >
             <div className="flex justify-center mb-4">
-              {[1, 2, 3, 4, 5].map((r) => (
+              {[1,2,3,4,5].map(r => (
                 <Star
                   key={r}
                   size={24}
-                  className={
-                    r <= allTestimonials[currentIndex].rating
-                      ? "text-amber-500 fill-amber-500"
-                      : "text-amber-500 fill-white"
-                  }
+                  className={r <= allTestimonials[currentIndex].rating
+                    ? "text-amber-500 fill-amber-500"
+                    : "text-amber-500 fill-white"}
                 />
               ))}
             </div>
@@ -132,12 +162,11 @@ const validate = () => {
           </h2>
 
           <form onSubmit={submitReview} className="grid gap-5">
-            <div>
-              <input
-                type="text"
-                placeholder="Your Name *"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
+            <input
+              type="text"
+              placeholder="Your Name *"
+              value={form.name}
+              onChange={e => setForm({ ...form, name: e.target.value })}
                 className=" w-full px-4 py-3 
                  text-black dark:text-white 
                  placeholder:text-gray-500 dark:placeholder:text-white/60 
@@ -145,15 +174,14 @@ const validate = () => {
                  rounded-md 
                  focus:outline-none focus:ring-2 focus:ring-sky-800 
                  transition"
-              />
-              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-            </div>
+            />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
             <input
               type="text"
               placeholder="Role (optional)"
               value={form.role}
-              onChange={(e) => setForm({ ...form, role: e.target.value })}
+              onChange={e => setForm({ ...form, role: e.target.value })}
                 className=" w-full px-4 py-3 
                  text-black dark:text-white 
                  placeholder:text-gray-500 dark:placeholder:text-white/60 
@@ -163,12 +191,11 @@ const validate = () => {
                  transition"
             />
 
-            <div>
-              <textarea
-                placeholder="Your Review *"
-                rows="4"
-                value={form.text}
-                onChange={(e) => setForm({ ...form, text: e.target.value })}
+            <textarea
+              rows="4"
+              placeholder="Your Review *"
+              value={form.text}
+              onChange={e => setForm({ ...form, text: e.target.value })}
                 className=" w-full px-4 py-3 
                  text-black dark:text-white 
                  placeholder:text-gray-500 dark:placeholder:text-white/60 
@@ -176,53 +203,55 @@ const validate = () => {
                  rounded-md 
                  focus:outline-none focus:ring-2 focus:ring-sky-800 
                  transition"
-              />
-              {errors.text && <p className="text-red-500 text-sm mt-1">{errors.text}</p>}
-            </div>
+            />
+            {errors.text && <p className="text-red-500 text-sm">{errors.text}</p>}
 
-            {/* STAR INPUT */}
-            <div>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((r) => (
-                  <Star
-                    key={r}
-                    size={22}
-                    className={`cursor-pointer ${
-                      r <= form.rating
-                        ? "text-amber-500 fill-amber-500"
-                        : "text-amber-500 fill-white"
-                    }`}
-                    onClick={() => setForm({ ...form, rating: r })}
-                  />
-                ))}
-              </div>
-              {errors.rating && <p className="text-red-500 text-sm mt-1">{errors.rating}</p>}
+            <div className="flex gap-2">
+              {[1,2,3,4,5].map(r => (
+                <Star
+                  key={r}
+                  size={22}
+                  className={`cursor-pointer ${
+                    r <= form.rating ? "text-amber-500 fill-amber-500" : "text-amber-500 fill-white"
+                  }`}
+                  onClick={() => setForm({ ...form, rating: r })}
+                />
+              ))}
             </div>
+            {errors.rating && <p className="text-red-500 text-sm">{errors.rating}</p>}
 
-            {/* MULTI IMAGE UPLOAD */}
+            {/* IMAGE UPLOAD */}
             <label className="flex items-center gap-3 text-sm text-gray-600 cursor-pointer">
               <Upload size={18} />
               Upload Images (optional)
               <input
                 type="file"
-                accept="image/*"
                 multiple
+                accept="image/*"
                 hidden
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    images: Array.from(e.target.files).map((f) =>
-                      URL.createObjectURL(f)
-                    )
-                  })
-                }
+                onChange={(e) => {
+                  const files = Array.from(e.target.files);
+                  setForm({ ...form, images: files });
+                  setImagePreviews(files.map(f => URL.createObjectURL(f)));
+                }}
               />
             </label>
 
-            <button
-              type="submit"
-              className="bg-sky-900 text-white px-6 py-3 rounded-md hover:bg-sky-800 transition"
-            >
+            {/* IMAGE PREVIEW */}
+            {imagePreviews.length > 0 && (
+              <div className="flex gap-3 flex-wrap mt-4">
+                {imagePreviews.map((src, idx) => (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt="preview"
+                    className="w-20 h-20 object-cover rounded-md border"
+                  />
+                ))}
+              </div>
+            )}
+
+            <button type="submit" className="bg-sky-900 text-white px-6 py-3 rounded-md">
               Submit Review
             </button>
           </form>
@@ -242,49 +271,37 @@ const validate = () => {
 
 const ReviewCard = ({ review }) => {
   const [imgIdx, setImgIdx] = useState(0);
-  if (!review.images || review.images.length === 0) {
-    return (
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <StarRow rating={review.rating} />
-        <p className="italic text-gray-700 mb-4">“{review.text}”</p>
-        <h4 className="font-semibold">{review.name}</h4>
-        <p className="text-sm text-gray-600">{review.role}</p>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <StarRow rating={review.rating} />
       <p className="italic text-gray-700 mb-4">“{review.text}”</p>
 
-      <div className="relative overflow-hidden rounded-md">
-        <img
-          src={review.images[imgIdx]}
-          alt="review"
-          className="w-full h-56 object-cover transition-all duration-300"
-        />
-        {review.images.length > 1 && (
-          <>
-            <button
-              onClick={() =>
-                setImgIdx((i) => (i - 1 + review.images.length) % review.images.length)
-              }
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
-            >
-              <ChevronLeft />
-            </button>
-            <button
-              onClick={() =>
-                setImgIdx((i) => (i + 1) % review.images.length)
-              }
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
-            >
-              <ChevronRight />
-            </button>
-          </>
-        )}
-      </div>
+      {review.images && review.images.length > 0 && (
+        <div className="relative overflow-hidden rounded-md">
+          <img
+            src={review.images[imgIdx]}
+            alt="review"
+            className="w-full h-56 object-cover"
+          />
+          {review.images.length > 1 && (
+            <>
+              <button
+                onClick={() => setImgIdx(i => (i - 1 + review.images.length) % review.images.length)}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
+              >
+                <ChevronLeft />
+              </button>
+              <button
+                onClick={() => setImgIdx(i => (i + 1) % review.images.length)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
+              >
+                <ChevronRight />
+              </button>
+            </>
+          )}
+        </div>
+      )}
 
       <h4 className="font-semibold mt-4">{review.name}</h4>
       <p className="text-sm text-gray-600">{review.role}</p>
@@ -294,15 +311,11 @@ const ReviewCard = ({ review }) => {
 
 const StarRow = ({ rating }) => (
   <div className="flex mb-2">
-    {[1, 2, 3, 4, 5].map((r) => (
+    {[1,2,3,4,5].map(r => (
       <Star
         key={r}
         size={16}
-        className={
-          r <= rating
-            ? "text-amber-500 fill-amber-500"
-            : "text-amber-500 fill-white"
-        }
+        className={r <= rating ? "text-amber-500 fill-amber-500" : "text-amber-500 fill-white"}
       />
     ))}
   </div>
