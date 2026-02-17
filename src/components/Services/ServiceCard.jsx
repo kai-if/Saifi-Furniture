@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import "./serviceAnimations.css";
+import { useNavigate } from "react-router-dom";
 
-const ServiceCard = ({ service, setCurrentPage }) => {
+const ServiceCard = ({ service }) => {
+  const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
   const [progress, setProgress] = useState(0);
   const backRef = useRef(null);
@@ -69,7 +71,7 @@ const ServiceCard = ({ service, setCurrentPage }) => {
 
             {/* CTA */}
             <button
-              onClick={() => setCurrentPage("contact")}
+              onClick={() => navigate("/contact")}
               className="block w-full text-center bg-sky-900 text-white py-3 rounded-md mb-6 hover:bg-sky-800 transition"
               >
              Contact Us
