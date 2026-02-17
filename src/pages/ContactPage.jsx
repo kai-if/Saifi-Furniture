@@ -232,7 +232,7 @@ const handleSubmit = (e) => {
           <div className="relative overflow-hidden rounded-2xl shadow-xl border border-sky-100 max-w-5xl mx-auto">
             <iframe
               title="Saifi Furniture Location"
-              src="https://www.google.com/maps?q=Saifi+Furniture+Mangal+Parao+Haldwani&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1773559.0693323815!2d77.4716000006991!3d29.749217987665407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a09b003231a4b3%3A0x665d0360fde5664e!2sSaifi%20Furnitures!5e0!3m2!1sen!2sin!4v1771345949124!5m2!1sen!2sin"
               width="100%"
               height="420"
               loading="lazy"
