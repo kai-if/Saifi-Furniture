@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import useScroll from "../../hooks/useScroll";
 
-const Navbar = ({ currentPage, setCurrentPage }) => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const isScrolled = useScroll(48);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -15,13 +19,13 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
   const isCollapsed = !isMobile && isScrolled && !isHovered;
 
   const navLinks = [
-    { id: "home", label: "Home" },
-    { id: "services", label: "Services" },
-    { id: "gallery", label: "Gallery" },
-    { id: "blog", label: "Ideas" },
-    { id: "contact", label: "Contact" },
-    { id: "about", label: "About Us" },
-    { id: "testimonials", label: "Testimonials" }
+    { id: "/", label: "Home" },
+    { id: "/services", label: "Services" },
+    { id: "/gallery", label: "Gallery" },
+    { id: "/blog", label: "Ideas" },
+    { id: "/contact", label: "Contact" },
+    { id: "/about", label: "About Us" },
+    { id: "/testimonials", label: "Testimonials" }
   ];
 
   const services = [
@@ -51,11 +55,10 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
     }
   }
 
-  const handleNavigate = (id) => {
-    setCurrentPage(id);
+  const handleNavigate = (path) => {
+    navigate(path);
     setIsMenuOpen(false);
     setServicesOpen(false);
-    // 👇 Force scroll to top on navigation
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -82,7 +85,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
 
         {/* LOGO */}
         <div
-          onClick={() => handleNavigate("home")}
+          onClick={() => handleNavigate("/")}
           role="link"
           aria-label="Go to homepage"
           className={`
@@ -106,7 +109,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
         >
           <ul className="flex items-center gap-4">
             {navLinks.map((link) => {
-              if (link.id === "services") {
+              if (link.id === "/services") {
                 return (
                   <li
                     key={link.id}
@@ -136,7 +139,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
                       {services.map((s) => (
                         <button
                           key={s.id}
-                          onClick={() => handleNavigate("services")}
+                          onClick={() => handleNavigate("/services")}
                           className="w-full text-left px-5 py-3 hover:bg-blue-50 dark:hover:bg-gray-700 transition"
                         >
                           <div className="text-sm font-medium text-gray-800 dark:text-gray-100">
@@ -154,7 +157,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
                   <button
                     onClick={() => handleNavigate(link.id)}
                     className={`text-sm font-medium transition ${
-                      currentPage === link.id
+                      location.pathname === link.id
                         ? "text-blue-400"
                         : "text-gray-600 dark:text-gray-300 hover:text-blue-400"
                     }`}
@@ -178,15 +181,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
         {/* MOBILE MENU BUTTON */}
         <button
           onClick={() => setIsMenuOpen(true)}
-          className="
-            md:hidden
-            p-2
-            rounded-full
-            text-gray-800 dark:text-gray-100
-            hover:bg-gray-100 dark:hover:bg-gray-800
-            transition-all duration-200
-            active:scale-95
-          "
+          className="md:hidden p-2 rounded-full text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 active:scale-95"
           aria-label="Open menu"
         >
           <Menu size={22} strokeWidth={1.75} />
@@ -200,43 +195,17 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
             className="absolute inset-0 bg-black/30 backdrop-blur-sm"
             onClick={() => setIsMenuOpen(false)}
           />
-          <div
-            className="
-              absolute top-full left-0 right-0
-              bg-white dark:bg-gray-900
-              shadow-xl
-              max-h-[75vh]
-              overflow-y-auto
-              animate-dropdown
-            "
-          >
+          <div className="absolute top-full left-0 right-0 bg-white dark:bg-gray-900 shadow-xl max-h-[75vh] overflow-y-auto animate-dropdown">
             <nav className="px-6 py-4 space-y-1">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => handleNavigate(link.id)}
-                  className="
-                    group
-                    w-full text-left
-                    py-3
-                    text-base font-medium
-                    text-gray-800 dark:text-gray-100
-                    transition-all duration-200
-                    hover:text-blue-400
-                    active:opacity-70
-                  "
+                  className="group w-full text-left py-3 text-base font-medium text-gray-800 dark:text-gray-100 transition-all duration-200 hover:text-blue-400 active:opacity-70"
                 >
                   <span className="relative inline-block">
                     {link.label}
-                    <span
-                      className="
-                        absolute left-0 -bottom-1
-                        h-[1px] w-0
-                        bg-blue-300
-                        transition-all duration-300
-                        group-hover:w-full
-                      "
-                    />
+                    <span className="absolute left-0 -bottom-1 h-[1px] w-0 bg-blue-300 transition-all duration-300 group-hover:w-full" />
                   </span>
                 </button>
               ))}

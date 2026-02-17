@@ -1,10 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle} from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPPP72wABOChyBmpR-scy1RWzt-kec10y5iRrHtNplPTfZm7njq8xk9H6p9Ml8JHF6/exec";
 
-const Footer = ({ setCurrentPage }) => {
+const Footer = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -21,7 +24,7 @@ const Footer = ({ setCurrentPage }) => {
   // helper to navigate and then scroll if an anchor is present
   const navigateAndScroll = (pageId, anchorId = null) => {
     // navigate first
-    if (typeof setCurrentPage === "function") setCurrentPage(pageId);
+    navigate(pageId === "home" ? "/" : `/${pageId}`);
 
     // allow page to render/settle, then attempt to scroll to anchor
     setTimeout(() => {
