@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle} from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPPP72wABOChyBmpR-scy1RWzt-kec10y5iRrHtNplPTfZm7njq8xk9H6p9Ml8JHF6/exec";
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_NEWSLETTER_SCRIPT_URL;
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -143,7 +143,7 @@ const handleSubscribe = async (e) => {
               </a>
 
               <a
-                href="https://wa.me/918077441194"
+                href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_PHONE}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -153,7 +153,7 @@ const handleSubscribe = async (e) => {
               </a>
 
               <a
-                href="mailto:Saifi.furn@gmail.com"
+                href={`mailto:${import.meta.env.VITE_SUPPORT_EMAIL}`}
                 aria-label="Email"
                 className="hover:text-white transition"
               >
@@ -259,19 +259,19 @@ const handleSubscribe = async (e) => {
               <div className="flex items-start gap-3">
                 <Phone size={18} />
                 <a
-                  href="tel:+918077441194"
+                  href={`tel:+${import.meta.env.VITE_WHATSAPP_PHONE}`}
                   className="hover:text-white transition"
                 >
-                  +91 8077441194
+                  +{import.meta.env.VITE_WHATSAPP_PHONE}
                 </a>
               </div>
                 <div className="flex items-start gap-3">
                 <Phone size={18} />
                 <a
-                  href="tel:+918474986781"
+                  href={`tel:+${import.meta.env.VITE_PHONE_SECONDARY}`}
                   className="hover:text-white transition"
                 >
-                  +91 8474986781
+                  +{import.meta.env.VITE_PHONE_SECONDARY}
                 </a>
               </div>
 
@@ -279,10 +279,10 @@ const handleSubscribe = async (e) => {
               <div className="flex items-start gap-3">
                 <Mail size={18} />
                 <a
-                  href="mailto:Saifi.furn@gmail.com"
+                  href={`mailto:${import.meta.env.VITE_SUPPORT_EMAIL}`}
                   className="hover:text-white transition"
                 >
-                  Saifi.furn@gmail.com
+                  {import.meta.env.VITE_SUPPORT_EMAIL}
                 </a>
               </div>
             </div>

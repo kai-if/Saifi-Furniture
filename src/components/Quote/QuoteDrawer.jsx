@@ -17,7 +17,7 @@ const QuoteDrawer = () => {
     const message = intro + itemsList + outro;
 
     // Using a placeholder WhatsApp Number (Update with actual client number)
-    const phone = "918077441194";
+    const phone = import.meta.env.VITE_WHATSAPP_PHONE;
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   };
 
@@ -31,7 +31,7 @@ const QuoteDrawer = () => {
 
     const subject = "Website Quote Inquiry";
     // Using a placeholder email (Update with actual client email)
-    const to = "saifi.furn@gamil.com";
+    const to = import.meta.env.VITE_SUPPORT_EMAIL;
 
     window.open(`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(intro + itemsList + outro)}`, '_blank');
   };

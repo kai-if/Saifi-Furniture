@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Star, ChevronDown, Upload, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, X } from "lucide-react";
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiwGYMPqil--DEcvpng-Ok4xSt4vuddYHhM_l4TGrb2WC1JfEXEDHI8fLGbKtxA4o21g/exec";
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
 
 const TestimonialsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
