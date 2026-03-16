@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
+import { Menu, X, Sun, Moon, ChevronDown, ShoppingBag } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useScroll from "../../hooks/useScroll";
+import { useTheme } from "../../context/ThemeContext";
+import { useQuote } from "../../context/QuoteContext";
+
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,8 +14,9 @@ const Navbar = () => {
   const isScrolled = useScroll(48);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [theme, setTheme] = useState("light");
   const [isHovered, setIsHovered] = useState(false);
+  const { isDarkMode, toggleTheme } = useTheme();
+  const { quoteItems, setIsDrawerOpen } = useQuote();
 
   const servicesTimeout = useRef(null);
   const isMobile = window.innerWidth < 768;
@@ -34,26 +39,6 @@ const Navbar = () => {
     { id: "restoration", label: "Restoration" },
     { id: "consult", label: "Interior Consultation" }
   ];
-
-  useEffect(() => {
-    const saved = localStorage.getItem("site-theme");
-    if (saved) setTheme(saved);
-    applyTheme(saved || theme);
-    // eslint-disable-next-line
-  }, []);
-
-  function applyTheme(t) {
-    const root = document.documentElement;
-    if (t === "dark") {
-      root.classList.add("dark");
-      localStorage.setItem("site-theme", "dark");
-      setTheme("dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("site-theme", "light");
-      setTheme("light");
-    }
-  }
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -169,13 +154,30 @@ const Navbar = () => {
             })}
           </ul>
 
-          {/* THEME TOGGLE */}
-          <button
-            onClick={() => applyTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-          >
-            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          <div className="flex items-center gap-2">
+            {/* QUOTE DRAWER BUTTON */}
+            <button
+              onClick={() => setIsDrawerOpen(true)}
+              className="p-2 relative rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+              aria-label="Open Quote List"
+            >
+              <ShoppingBag size={20} className="text-gray-800 dark:text-gray-100" />
+              {quoteItems.length > 0 && (
+                <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full">
+                  {quoteItems.length}
+                </span>
+              )}
+            </button>
+
+            {/* THEME TOGGLE */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition text-gray-800 dark:text-gray-100"
+              aria-label="Toggle Theme"
+            >
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </div>
         </div>
 
         {/* MOBILE MENU BUTTON */}

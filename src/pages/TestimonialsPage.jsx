@@ -30,7 +30,7 @@ const TestimonialsPage = () => {
     fetch(GOOGLE_SCRIPT_URL)
       .then(res => res.json())
       .then(data => setUserReviews(data.reverse()))
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const allTestimonials = [...userReviews, ...testimonials];
@@ -107,10 +107,10 @@ const TestimonialsPage = () => {
 
         {/* HEADER */}
         <div className="text-center mb-20 animate-fadeInUp">
-          <h1 className="text-5xl font-serif font-bold text-sky-900 mb-4">
+          <h1 className="text-5xl font-serif font-bold text-sky-900 dark:text-sky-900 mb-4">
             Client Testimonials
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-500">
             Experiences shared by clients who trust Saifi Furniture
           </p>
         </div>
@@ -119,12 +119,11 @@ const TestimonialsPage = () => {
         <div className="relative bg-white rounded-xl shadow-xl p-12 mb-20 overflow-hidden">
           <div
             key={currentIndex}
-            className={`transition-all duration-500 ${
-              direction === "next" ? "animate-slideLeft" : "animate-slideRight"
-            }`}
+            className={`transition-all duration-500 ${direction === "next" ? "animate-slideLeft" : "animate-slideRight"
+              }`}
           >
             <div className="flex justify-center mb-4">
-              {[1,2,3,4,5].map(r => (
+              {[1, 2, 3, 4, 5].map(r => (
                 <Star
                   key={r}
                   size={24}
@@ -167,12 +166,13 @@ const TestimonialsPage = () => {
               placeholder="Your Name *"
               value={form.name}
               onChange={e => setForm({ ...form, name: e.target.value })}
-                className=" w-full px-4 py-3 
+              className=" w-full px-4 py-3 
                  text-black dark:text-white 
-                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 bg-white dark:bg-gray-700
+                 placeholder:text-gray-500 dark:placeholder-gray-400 
                  border border-gray-300 dark:border-gray-600 
                  rounded-md 
-                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 dark:focus:ring-sky-500
                  transition"
             />
             {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
@@ -182,12 +182,13 @@ const TestimonialsPage = () => {
               placeholder="Role (optional)"
               value={form.role}
               onChange={e => setForm({ ...form, role: e.target.value })}
-                className=" w-full px-4 py-3 
-                 text-black dark:text-white 
-                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+              className=" w-full px-4 py-3 
+                 text-black dark:text-white
+                 bg-white dark:bg-gray-700
+                 placeholder:text-gray-500 dark:placeholder-gray-400 
                  border border-gray-300 dark:border-gray-600 
                  rounded-md 
-                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 dark:focus:ring-sky-500
                  transition"
             />
 
@@ -196,24 +197,24 @@ const TestimonialsPage = () => {
               placeholder="Your Review *"
               value={form.text}
               onChange={e => setForm({ ...form, text: e.target.value })}
-                className=" w-full px-4 py-3 
+              className=" w-full px-4 py-3 
                  text-black dark:text-white 
-                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 bg-white dark:bg-gray-700
+                 placeholder:text-gray-500 dark:placeholder-gray-400 
                  border border-gray-300 dark:border-gray-600 
                  rounded-md 
-                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 dark:focus:ring-sky-500
                  transition"
             />
             {errors.text && <p className="text-red-500 text-sm">{errors.text}</p>}
 
             <div className="flex gap-2">
-              {[1,2,3,4,5].map(r => (
+              {[1, 2, 3, 4, 5].map(r => (
                 <Star
                   key={r}
                   size={22}
-                  className={`cursor-pointer ${
-                    r <= form.rating ? "text-amber-500 fill-amber-500" : "text-amber-500 fill-white"
-                  }`}
+                  className={`cursor-pointer ${r <= form.rating ? "text-amber-500 fill-amber-500" : "text-amber-500 fill-white"
+                    }`}
                   onClick={() => setForm({ ...form, rating: r })}
                 />
               ))}
@@ -311,7 +312,7 @@ const ReviewCard = ({ review }) => {
 
 const StarRow = ({ rating }) => (
   <div className="flex mb-2">
-    {[1,2,3,4,5].map(r => (
+    {[1, 2, 3, 4, 5].map(r => (
       <Star
         key={r}
         size={16}

@@ -5,6 +5,11 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Chatbot from "./components/Chatbot/Chatbot";
 import Newsletter from "./components/Newsletter/Newsletter";
+import QuoteDrawer from "./components/Quote/QuoteDrawer";
+import { AnimatePresence } from "framer-motion";
+import PageTransition from "./components/Effects/PageTransition";
+
+
 
 import HomePage from "./pages/HomePage/HomePage";
 import AboutPage from "./pages/AboutPage";
@@ -82,24 +87,25 @@ export default function App() {
       <Navbar />
 
       <main className="min-h-screen overflow-hidden">
-        <div key={location.pathname} className="animate-fadeInUp">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/location" element={<LocationPage />} />
-            <Route path="/testimonials" element={<TestimonialsPage />} />
-            <Route path="/offers" element={<OffersPage />} />
-            <Route path="/blog" element={<BlogPage />} />
+        <AnimatePresence mode="wait">
+          <Routes key={location.pathname} location={location}>
+            <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+            <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+            <Route path="/services" element={<PageTransition><ServicesPage /></PageTransition>} />
+            <Route path="/gallery" element={<PageTransition><GalleryPage /></PageTransition>} />
+            <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+            <Route path="/location" element={<PageTransition><LocationPage /></PageTransition>} />
+            <Route path="/testimonials" element={<PageTransition><TestimonialsPage /></PageTransition>} />
+            <Route path="/offers" element={<PageTransition><OffersPage /></PageTransition>} />
+            <Route path="/blog" element={<PageTransition><BlogPage /></PageTransition>} />
           </Routes>
-        </div>
+        </AnimatePresence>
       </main>
 
       <Newsletter />
       <Footer />
       <Chatbot />
+      <QuoteDrawer />
       <Analytics />
     </div>
   );

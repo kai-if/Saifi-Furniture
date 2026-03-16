@@ -60,10 +60,11 @@ const handleSubmit = (e) => {
                 required
                 className=" w-full px-4 py-3 
                  text-black dark:text-white 
-                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 bg-white dark:bg-gray-700
+                 placeholder:text-gray-500 dark:placeholder-gray-400 
                  border border-gray-300 dark:border-gray-600 
                  rounded-md 
-                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 dark:focus:ring-sky-500
                  transition"
               />
 
@@ -77,10 +78,11 @@ const handleSubmit = (e) => {
                 required
                 className=" w-full px-4 py-3 
                  text-black dark:text-white 
-                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 bg-white dark:bg-gray-700
+                 placeholder:text-gray-500 dark:placeholder-gray-400 
                  border border-gray-300 dark:border-gray-600 
                  rounded-md 
-                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 dark:focus:ring-sky-500 
                  transition"
               />
 
@@ -94,10 +96,11 @@ const handleSubmit = (e) => {
                 required
                 className=" w-full px-4 py-3 
                  text-black dark:text-white 
-                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 bg-white dark:bg-gray-700
+                 placeholder:text-gray-500 dark:placeholder-gray-400 
                  border border-gray-300 dark:border-gray-600 
                  rounded-md 
-                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 dark:focus:ring-sky-500
                  transition"
               />
 
@@ -110,11 +113,12 @@ const handleSubmit = (e) => {
                 }
                 required
                 className=" w-full px-4 py-3 
-                 text-black dark:text-white 
-                 placeholder:text-gray-500 dark:placeholder:text-white/60 
+                 text-black dark:text-white
+                 bg-white dark:bg-gray-700
+                 placeholder:text-gray-500 dark:placeholder-gray-400 
                  border border-gray-300 dark:border-gray-600 
                  rounded-md 
-                 focus:outline-none focus:ring-2 focus:ring-sky-800 
+                 focus:outline-none focus:ring-2 focus:ring-sky-800 dark:focus:ring-sky-500
                  transition"
               />
 

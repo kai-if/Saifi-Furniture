@@ -27,7 +27,7 @@ const Chatbot = () => {
       </button>
 
       {show && (
-        <div className="fixed bottom-24 right-6 w-80 bg-white rounded-lg shadow-2xl z-50 animate-fadeInUp">
+        <div className="fixed bottom-24 right-6 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-2xl dark:shadow-gray-900/50 z-50 animate-fadeInUp">
           <div className="bg-sky-900 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Chat with Us</h3>
             <button onClick={() => setShow(false)} aria-label="Close chat"
@@ -39,19 +39,20 @@ const Chatbot = () => {
           <div className="h-80 overflow-y-auto p-4 space-y-3">
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[70%] p-3 rounded-lg ${msg.sender === "user" ? "bg-sky-900 text-white" : "bg-gray-100 text-gray-800"}`}>
+                <div className={`max-w-[70%] p-3 rounded-lg ${msg.sender === "user" ? "bg-sky-900 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100"}`}>
                   {msg.text}
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="p-4 border-t flex space-x-2">
+          <div className="p-4 border-t dark:border-gray-700 flex space-x-2">
             <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 
              text-black dark:text-white 
-             placeholder:text-gray-500 dark:placeholder:text-white/60 
-             border border-gray-300 rounded-md 
-             focus:outline-none focus:ring-2 focus:ring-sky-900" />
+             bg-white dark:bg-gray-700
+             placeholder:text-gray-500 dark:placeholder-gray-400 
+             border border-gray-300 dark:border-gray-600 rounded-md 
+             focus:outline-none focus:ring-2 focus:ring-sky-900 dark:focus:ring-sky-500" />
             <button onClick={handleSend} className="bg-sky-900 text-white p-2 rounded-md hover:bg-sky-800 transition-colors" aria-label="Send">
               <Send size={20} />
             </button>
