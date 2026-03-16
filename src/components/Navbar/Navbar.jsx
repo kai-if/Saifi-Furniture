@@ -171,15 +171,6 @@ const Navbar = () => {
             )}
           </button>
 
-          {/* THEME TOGGLE */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition text-gray-800 dark:text-gray-100"
-            aria-label="Toggle Theme"
-          >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-
           {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setIsMenuOpen(true)}
