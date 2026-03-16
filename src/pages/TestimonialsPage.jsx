@@ -318,6 +318,7 @@ const Lightbox = ({ images, currentIndex, setCurrentIndex, onClose }) => {
 
   const handleZoomIn = (e) => { e.stopPropagation(); setScale(s => Math.min(s + 0.5, 3)); };
   const handleZoomOut = (e) => { e.stopPropagation(); setScale(s => Math.max(s - 0.5, 1)); };
+  const handleDoubleClick = (e) => { e.stopPropagation(); setScale(s => s > 1 ? 1 : 2.5); };
 
   const next = (e) => { e.stopPropagation(); setCurrentIndex(i => (i + 1) % images.length); };
   const prev = (e) => { e.stopPropagation(); setCurrentIndex(i => (i - 1 + images.length) % images.length); };
@@ -336,7 +337,11 @@ const Lightbox = ({ images, currentIndex, setCurrentIndex, onClose }) => {
         </>
       )}
       <div className="max-w-[85vw] max-h-[85vh] flex items-center justify-center overflow-auto" onClick={(e) => e.stopPropagation()}>
-        <div style={{ transform: `scale(${scale})` }} className="transition-transform duration-300 ease-out flex items-center justify-center">
+        <div 
+          style={{ transform: `scale(${scale})` }} 
+          className={`transition-transform duration-300 ease-out flex items-center justify-center ${scale > 1 ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
+          onDoubleClick={handleDoubleClick}
+        >
           <img src={images[currentIndex]} alt="Full screen" className="max-w-full max-h-[85vh] object-contain select-none" draggable="false" />
         </div>
       </div>
