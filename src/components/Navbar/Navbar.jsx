@@ -153,41 +153,42 @@ const Navbar = () => {
               );
             })}
           </ul>
-
-          <div className="flex items-center gap-2">
-            {/* QUOTE DRAWER BUTTON */}
-            <button
-              onClick={() => setIsDrawerOpen(true)}
-              className="p-2 relative rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-              aria-label="Open Quote List"
-            >
-              <ShoppingBag size={20} className="text-gray-800 dark:text-gray-100" />
-              {quoteItems.length > 0 && (
-                <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full">
-                  {quoteItems.length}
-                </span>
-              )}
-            </button>
-
-            {/* THEME TOGGLE */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition text-gray-800 dark:text-gray-100"
-              aria-label="Toggle Theme"
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          </div>
         </div>
 
-        {/* MOBILE MENU BUTTON */}
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          className="md:hidden p-2 rounded-full text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 active:scale-95"
-          aria-label="Open menu"
-        >
-          <Menu size={22} strokeWidth={1.75} />
-        </button>
+        {/* ICONS & MOBILE MENU */}
+        <div className="flex items-center gap-1 md:gap-2">
+          {/* QUOTE DRAWER BUTTON */}
+          <button
+            onClick={() => setIsDrawerOpen(true)}
+            className="p-2 relative rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            aria-label="Open Quote List"
+          >
+            <ShoppingBag size={20} className="text-gray-800 dark:text-gray-100" />
+            {quoteItems.length > 0 && (
+              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full">
+                {quoteItems.length}
+              </span>
+            )}
+          </button>
+
+          {/* THEME TOGGLE */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition text-gray-800 dark:text-gray-100"
+            aria-label="Toggle Theme"
+          >
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="md:hidden p-2 rounded-full text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 active:scale-95"
+            aria-label="Open menu"
+          >
+            <Menu size={22} strokeWidth={1.75} />
+          </button>
+        </div>
       </div>
 
       {/* MOBILE MENU */}
