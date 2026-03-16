@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Star, ChevronDown, Upload, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, ChevronDown, Upload, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, X } from "lucide-react";
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiwGYMPqil--DEcvpng-Ok4xSt4vuddYHhM_l4TGrb2WC1JfEXEDHI8fLGbKtxA4o21g/exec";
 
@@ -18,6 +18,7 @@ const TestimonialsPage = () => {
 
   const [imagePreviews, setImagePreviews] = useState([]); // ✅ PREVIEW STATE
   const [errors, setErrors] = useState({});
+  const [activeLightbox, setActiveLightbox] = useState(null); // Lightbox State
 
   const testimonials = [
     { name: "Richa", role: "Interior Designer", text: "Saifi Furniture transformed our entire home with their exceptional craftsmanship.", rating: 5 },
@@ -25,11 +26,30 @@ const TestimonialsPage = () => {
     { name: "Sarah", role: "Restaurant Owner", text: "We furnished our entire restaurant with Saifi Furniture pieces.", rating: 5 }
   ];
 
+  /* ---------------- PARSE DRIVE URLs ---------------- */
+  const parseGoogleDriveImage = (url) => {
+    if (!url) return url;
+    if (url.includes("drive.google.com/file/d/")) {
+      const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        // Use Google's content delivery network for direct image embedding
+        return `https://lh3.googleusercontent.com/d/${match[1]}=s1000?authuser=0`;
+      }
+    }
+    return url;
+  };
+
   /* ---------------- LOAD REVIEWS ---------------- */
   useEffect(() => {
     fetch(GOOGLE_SCRIPT_URL)
       .then(res => res.json())
-      .then(data => setUserReviews(data.reverse()))
+      .then(data => {
+        const parsedData = data.map(review => ({
+          ...review,
+          images: review.images ? review.images.map(parseGoogleDriveImage) : []
+        }));
+        setUserReviews(parsedData.reverse());
+      })
       .catch(() => { });
   }, []);
 
@@ -261,16 +281,70 @@ const TestimonialsPage = () => {
         {/* REVIEW GRID */}
         <div className="grid md:grid-cols-2 gap-6">
           {allTestimonials.map((t, idx) => (
-            <ReviewCard key={idx} review={t} />
+            <ReviewCard 
+              key={idx} 
+              review={t} 
+              onImageClick={(index) => setActiveLightbox({ images: t.images, index })}
+            />
           ))}
         </div>
 
+      </div>
+
+      {activeLightbox && (
+        <Lightbox 
+          images={activeLightbox.images}
+          currentIndex={activeLightbox.index}
+          setCurrentIndex={(indexUpdater) => {
+            setActiveLightbox(prev => ({
+              ...prev,
+              index: typeof indexUpdater === 'function' ? indexUpdater(prev.index) : indexUpdater
+            }))
+          }}
+          onClose={() => setActiveLightbox(null)}
+        />
+      )}
+    </div>
+  );
+};
+
+/* ---------------- LIGHTBOX COMPONENT ---------------- */
+const Lightbox = ({ images, currentIndex, setCurrentIndex, onClose }) => {
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    setScale(1); 
+  }, [currentIndex]);
+
+  const handleZoomIn = (e) => { e.stopPropagation(); setScale(s => Math.min(s + 0.5, 3)); };
+  const handleZoomOut = (e) => { e.stopPropagation(); setScale(s => Math.max(s - 0.5, 1)); };
+
+  const next = (e) => { e.stopPropagation(); setCurrentIndex(i => (i + 1) % images.length); };
+  const prev = (e) => { e.stopPropagation(); setCurrentIndex(i => (i - 1 + images.length) % images.length); };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center backdrop-blur-sm animate-fadeIn" onClick={onClose}>
+      <div className="absolute top-6 right-6 flex gap-4 z-50">
+        <button onClick={handleZoomIn} className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"><ZoomIn size={22} /></button>
+        <button onClick={handleZoomOut} className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"><ZoomOut size={22} /></button>
+        <button onClick={onClose} className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"><X size={22} /></button>
+      </div>
+      {images.length > 1 && (
+        <>
+          <button onClick={prev} className="absolute left-6 top-1/2 -translate-y-1/2 p-3.5 bg-white/10 hover:bg-white/20 rounded-full text-white z-50"><ChevronLeft size={28} /></button>
+          <button onClick={next} className="absolute right-6 top-1/2 -translate-y-1/2 p-3.5 bg-white/10 hover:bg-white/20 rounded-full text-white z-50"><ChevronRight size={28} /></button>
+        </>
+      )}
+      <div className="max-w-[85vw] max-h-[85vh] flex items-center justify-center overflow-auto" onClick={(e) => e.stopPropagation()}>
+        <div style={{ transform: `scale(${scale})` }} className="transition-transform duration-300 ease-out flex items-center justify-center">
+          <img src={images[currentIndex]} alt="Full screen" className="max-w-full max-h-[85vh] object-contain select-none" draggable="false" />
+        </div>
       </div>
     </div>
   );
 };
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review, onImageClick }) => {
   const [imgIdx, setImgIdx] = useState(0);
 
   return (
@@ -279,23 +353,23 @@ const ReviewCard = ({ review }) => {
       <p className="italic text-gray-700 mb-4">“{review.text}”</p>
 
       {review.images && review.images.length > 0 && (
-        <div className="relative overflow-hidden rounded-md">
+        <div className="relative overflow-hidden rounded-md cursor-pointer" onClick={() => onImageClick(imgIdx)}>
           <img
             src={review.images[imgIdx]}
             alt="review"
-            className="w-full h-56 object-cover"
+            className="w-full h-56 object-cover hover:scale-105 transition-all duration-500"
           />
           {review.images.length > 1 && (
             <>
               <button
-                onClick={() => setImgIdx(i => (i - 1 + review.images.length) % review.images.length)}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
+                onClick={(e) => { e.stopPropagation(); setImgIdx(i => (i - 1 + review.images.length) % review.images.length); }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full hover:bg-white transition"
               >
                 <ChevronLeft />
               </button>
               <button
-                onClick={() => setImgIdx(i => (i + 1) % review.images.length)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full"
+                onClick={(e) => { e.stopPropagation(); setImgIdx(i => (i + 1) % review.images.length); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded-full hover:bg-white transition"
               >
                 <ChevronRight />
               </button>
