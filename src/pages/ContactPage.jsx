@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { sendEmail } from "../lib/services/emailService";
+import CardModal from "../components/Contact/CardModal";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const ContactPage = () => {
     phone: "",
     message: ""
   });
+  const [isCardOpen, setIsCardOpen] = useState(false);
 
 const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,6 +38,16 @@ const handleSubmit = (e) => {
             Visit our showroom or get in touch for bespoke furniture crafted
             with precision, elegance, and enduring quality.
           </p>
+        </div>
+
+        {/* BUSINESS CARD TRIGGER SECTION */}
+        <div className="text-center mb-16 animate-fadeInUp" style={{ animationDelay: "80ms" }}>
+          <button 
+            onClick={() => setIsCardOpen(true)}
+            className="inline-flex items-center gap-2 text-sky-900 font-semibold hover:text-amber-600 transition-colors border-b-2 border-transparent hover:border-amber-600 pb-1 text-base cursor-pointer group"
+          >
+            View Digital Business Card
+          </button>
         </div>
 
         <div className="grid md:grid-cols-2 gap-16 items-start">
@@ -258,6 +270,9 @@ const handleSubmit = (e) => {
         </div>
 
       </div>
+
+      {/* 3D Business Card Modal */}
+      <CardModal isOpen={isCardOpen} onClose={() => setIsCardOpen(false)} />
     </div>
   );
 };
