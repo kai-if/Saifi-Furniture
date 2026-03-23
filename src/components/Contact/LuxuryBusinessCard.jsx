@@ -188,11 +188,11 @@ const LuxuryBusinessCard = () => {
             </div>
 
             <div className="space-y-3 my-4">
-              <div className="flex items-center gap-3 text-gray-200 text-sm hover:text-amber-300 transition-colors" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center gap-3 text-gray-200 text-sm hover:text-amber-300 transition-colors" onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
                 <Phone size={14} className="text-amber-400" />
                 <a href="tel:+918077441194" className="font-medium">+91 8077441194</a>
               </div>
-              <div className="flex items-center gap-3 text-gray-200 text-sm hover:text-amber-300 transition-colors" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center gap-3 text-gray-200 text-sm hover:text-amber-300 transition-colors" onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
                 <Mail size={14} className="text-amber-400" />
                 <a href="mailto:Saifi.furn@gmail.com" className="font-medium">Saifi.furn@gmail.com</a>
               </div>
@@ -204,13 +204,13 @@ const LuxuryBusinessCard = () => {
 
             <div className="flex justify-between items-center mt-auto border-t border-amber-500/10 pt-3">
               <div className="flex gap-4">
-                <a href="https://wa.me/918077441194" target="_blank" rel="noreferrer" className="text-amber-400 hover:text-white transition" onClick={(e) => e.stopPropagation()}>
+                <a href="https://wa.me/918077441194" target="_blank" rel="noreferrer" className="text-amber-400 hover:text-white transition" onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
                   <FaWhatsapp size={18} />
                 </a>
-                <a href="https://instagram.com/saififurnitures" target="_blank" rel="noreferrer" className="text-amber-400 hover:text-white transition" onClick={(e) => e.stopPropagation()}>
+                <a href="https://instagram.com/saififurnitures" target="_blank" rel="noreferrer" className="text-amber-400 hover:text-white transition" onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
                   <Instagram size={18} />
                 </a>
-                <a href="#" className="text-amber-400 hover:text-white transition" onClick={(e) => e.stopPropagation()}>
+                <a href="#" className="text-amber-400 hover:text-white transition" onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
                   <Globe size={18} />
                 </a>
               </div>
