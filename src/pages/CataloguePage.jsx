@@ -80,7 +80,7 @@ export default function CataloguePage() {
           const noPdfElements = element.querySelectorAll(".no-pdf");
           noPdfElements.forEach(el => el.style.opacity = "0");
 
-          const canvas = await html2canvas(element, { scale: 1.5, useCORS: true, backgroundColor: "#000000" });
+          const canvas = await html2canvas(element, { scale: window.innerWidth < 768 ? 1 : 1.2, useCORS: true, backgroundColor: "#000000" });
           noPdfElements.forEach(el => el.style.opacity = "");
 
           const imgData = canvas.toDataURL("image/jpeg", 0.9);
@@ -103,7 +103,7 @@ export default function CataloguePage() {
         // 2. CAPTURE SPEC SHEET GRID
         const specElement = document.getElementById(`pdf-specs-${scene.id}`);
         if (specElement) {
-          const canvas = await html2canvas(specElement, { scale: 1.5, useCORS: true, backgroundColor: "#0b0c10" });
+          const canvas = await html2canvas(specElement, { scale: window.innerWidth < 768 ? 1 : 1.2, useCORS: true, backgroundColor: "#0b0c10" });
           const imgData = canvas.toDataURL("image/jpeg", 0.9);
 
           const canvasAspect = canvas.width / canvas.height;
@@ -122,7 +122,16 @@ export default function CataloguePage() {
           pdf.addImage(imgData, "JPEG", xOffset, yOffset, printWidth, printHeight);
         }
       }
-      pdf.save("Saifi_Furniture_Exclusive_Catalogue.pdf");
+      // Use Blob triggers for robust mobile file-saver compatibility
+      const blob = pdf.output("blob");
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Saifi_Furniture_Exclusive_Catalogue.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 300); // Wait safely
     } catch (error) {
       console.error("PDF Download failed", error);
     } finally {
