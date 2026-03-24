@@ -11,7 +11,8 @@ import PageTransition from "./components/Effects/PageTransition";
 
 
 
-import HomePage from "./pages/HomePage/HomePage";
+import { Analytics } from "@vercel/analytics/react";
+import CataloguePage from "./pages/CataloguePage";
 import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage/ServicesPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
@@ -20,8 +21,7 @@ import LocationPage from "./pages/LocationPage";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import OffersPage from "./pages/OffersPage";
 import BlogPage from "./pages/BlogPage/BlogPage";
-
-import { Analytics } from "@vercel/analytics/react";
+import HomePage from "./pages/HomePage/HomePage";
 
 export default function App() {
   const location = useLocation();
@@ -35,6 +35,11 @@ export default function App() {
         title: "Saifi Furniture | Luxury Custom Furniture in Haldwani",
         desc: "Luxury custom furniture, modular kitchens & interiors crafted with precision. Best furniture showroom in Haldwani.",
         keywords: "furniture in haldwani, luxury furniture, custom furniture, modular kitchen, saifi furniture"
+      },
+      "/catalogue": {
+        title: "Exclusive Catalogue | Saifi Furniture Luxury Collection",
+        desc: "Explore the Saifi Furniture 2026 Catalogue featuring premium sofas, bed frames, and modular layouts.",
+        keywords: "furniture catalogue, design lookbook, product brochure, luxury furniture pricing"
       },
       "/about": {
         title: "About Us | Saifi Furniture",
@@ -178,6 +183,7 @@ export default function App() {
         <AnimatePresence mode="wait">
           <Routes key={location.pathname} location={location}>
             <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+            <Route path="/catalogue" element={<PageTransition><CataloguePage /></PageTransition>} />
             <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
             <Route path="/services" element={<PageTransition><ServicesPage /></PageTransition>} />
             <Route path="/gallery" element={<PageTransition><GalleryPage /></PageTransition>} />

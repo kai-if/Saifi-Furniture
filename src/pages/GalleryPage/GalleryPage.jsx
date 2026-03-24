@@ -28,7 +28,7 @@ export default function GalleryPage() {
     { name: "Vanity", category: "Home", img: "/images/vanity.JPG" },
     { name: "Rocking Chair", category: "Office", img: "/images/rchair.PNG" },
     { name: "Kids Study Table", category: "Office", img: "/images/stable.JPG" }
-    
+
   ];
 
   const filteredProducts =
@@ -55,11 +55,10 @@ export default function GalleryPage() {
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-6 py-2 rounded-full capitalize transition-all duration-300 ${
-                activeFilter === cat
-                  ? "bg-sky-900 text-white"
-                  : "bg-white text-gray-700 hover:bg-sky-100"
-              }`}
+              className={`px-6 py-2 rounded-full capitalize transition-all duration-300 ${activeFilter === cat
+                ? "bg-sky-900 text-white"
+                : "bg-white text-gray-700 hover:bg-sky-100"
+                }`}
             >
               {cat}
             </button>
