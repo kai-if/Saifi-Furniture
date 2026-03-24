@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Phone, ShieldCheck, X, Info, Maximize2, Download, Plus, ClipboardList, Trash2 } from "lucide-react";
+import { Sparkles, Phone, ShieldCheck, X, Info, Maximize2, Download, Plus } from "lucide-react";
+import { useQuote } from "../context/QuoteContext";
 
 export default function CataloguePage() {
   const [activeItem, setActiveItem] = useState(null);
@@ -8,22 +9,11 @@ export default function CataloguePage() {
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
 
-  const [quoteItems, setQuoteItems] = useState([]);
-  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const { quoteItems, addItemToQuote, setIsDrawerOpen } = useQuote();
 
-  const addToQuote = (item) => {
-    if (!quoteItems.find(i => i.id === item.id)) {
-      setQuoteItems([...quoteItems, item]);
-    }
-  };
-
-  const removeFromQuote = (id) => {
-    setQuoteItems(quoteItems.filter(i => i.id !== id));
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
     const container = document.getElementById("snap-scroll-container");
-    if (activeItem || zoomImage || isQuoteOpen) {
+    if (activeItem || zoomImage) {
       document.body.style.overflow = "hidden";
       if (container) container.style.overflow = "hidden";
     } else {
@@ -34,7 +24,7 @@ export default function CataloguePage() {
       document.body.style.overflow = "auto";
       if (container) container.style.overflow = "auto";
     };
-  }, [activeItem, zoomImage, isQuoteOpen]);
+  }, [activeItem, zoomImage]);
 
   // High-End Scenes mapped to background shots and discrete hotspot references
   const scenes = [
@@ -143,21 +133,6 @@ export default function CataloguePage() {
   return (
     <div className="min-h-screen bg-black text-white relative">
 
-      {/* QUOTE BASKET TRIGGER */}
-      <div className="fixed top-20 md:top-24 right-16 md:right-20 z-40 no-pdf">
-        <button
-          onClick={() => setIsQuoteOpen(true)}
-          title="View Quote List"
-          className="relative flex items-center justify-center bg-zinc-950/50 hover:bg-zinc-900 backdrop-blur-md border border-white/5 hover:border-amber-500/20 text-white/60 hover:text-amber-400 p-2.5 rounded-full transition-all duration-300 shadow-xl active:scale-95"
-        >
-          <ClipboardList size={14} />
-          {quoteItems.length > 0 && (
-            <span className="absolute -top-1 -right-1 bg-amber-500 text-stone-900 text-[9px] font-bold h-3.5 w-3.5 rounded-full flex items-center justify-center animate-pulse">
-              {quoteItems.length}
-            </span>
-          )}
-        </button>
-      </div>
 
       {/* DOWNLOAD PDF TRIGGER Action */}
       <div className="fixed top-20 md:top-24 right-4 md:right-6 z-40 no-pdf">
@@ -346,7 +321,12 @@ export default function CataloguePage() {
             </div>
             <div className="mt-8 space-y-2">
               <button
-                onClick={() => addToQuote(activeItem)}
+                onClick={() => addItemToQuote({
+                  id: activeItem.id,
+                  title: activeItem.name,
+                  category: "Catalogue",
+                  image: activeItem.img
+                })}
                 className="flex items-center justify-center gap-2 w-full bg-white/5 hover:bg-white/10 text-white font-medium py-3 rounded-xl border border-white/5 transition-all duration-300 text-sm active:scale-95"
               >
                 <Plus size={16} className={quoteItems.find(i => i.id === activeItem.id) ? "text-sky-600" : ""} />
@@ -388,60 +368,6 @@ export default function CataloguePage() {
                 Saifi Furniture, Haldwani - 8077441194
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {/* QUOTE LIST DRAWER */}
-      <AnimatePresence>
-        {isQuoteOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: 300 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 300 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-0 right-0 h-screen w-full max-w-sm bg-zinc-950/90 backdrop-blur-xl border-l border-white/10 z-50 p-6 flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex justify-between items-center border-b border-white/5 pb-4 mb-4">
-                <h3 className="text-xl font-serif font-bold text-white flex items-center gap-2"><ClipboardList size={18} className="text-amber-400" /> Your Quote List</h3>
-                <button onClick={() => setIsQuoteOpen(false)} className="p-2 text-gray-400 hover:text-white"><X size={18} /></button>
-              </div>
-
-              {quoteItems.length === 0 ? (
-                <p className="text-gray-400 text-sm text-center py-12">Your list is empty. Add items from products to get started.</p>
-              ) : (
-                <div className="space-y-3 overflow-y-auto max-h-[65vh] pr-2">
-                  {quoteItems.map((item) => (
-                    <div key={item.id} className="bg-white/5 rounded-xl p-3 flex gap-4 items-center border border-white/5">
-                      <div className="w-16 h-16 bg-black/40 rounded-lg p-1 flex items-center justify-center border border-white/5">
-                        <img src={item.img} alt={item.name} className="max-h-full max-w-full object-contain" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-sm font-semibold text-white leading-tight">{item.name}</h4>
-                        <p className="text-[10px] text-gray-400 mt-0.5">{item.material}</p>
-                      </div>
-                      <button onClick={() => removeFromQuote(item.id)} className="text-gray-500 hover:text-red-400 p-1"><Trash2 size={16} /></button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {quoteItems.length > 0 && (
-              <div className="border-t border-white/5 pt-4">
-                <a
-                  href={`https://wa.me/918077441194?text=${encodeURIComponent(
-                    `Hi, I want a quote for the following items from your Catalogue:\n\n` +
-                    quoteItems.map((item, index) => `${index + 1}. ${item.name} (${item.material})`).join("\n") +
-                    `\n\nPlease let me know pricing and stock details.`
-                  )}`}
-                  target="_blank" rel="noreferrer"
-                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-500 to-yellow-600 text-stone-900 font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:from-amber-600 transition-all duration-300 text-sm active:scale-95"
-                >
-                  <Phone size={16} /> Submit Quote Inquiry
-                </a>
-              </div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>

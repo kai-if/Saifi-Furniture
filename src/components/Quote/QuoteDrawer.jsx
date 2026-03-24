@@ -6,6 +6,17 @@ import { useQuote } from '../../context/QuoteContext';
 const QuoteDrawer = () => {
   const { quoteItems, isDrawerOpen, setIsDrawerOpen, removeItemFromQuote, clearQuote } = useQuote();
 
+  React.useEffect(() => {
+    if (isDrawerOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isDrawerOpen]);
+
   const handleRequestQuoteWhatsApp = () => {
     if (quoteItems.length === 0) return;
 
