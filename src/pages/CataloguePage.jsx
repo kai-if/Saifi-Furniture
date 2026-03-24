@@ -10,6 +10,7 @@ export default function CataloguePage() {
   const [isDownloading, setIsDownloading] = useState(false);
 
   const { quoteItems, addItemToQuote, setIsDrawerOpen } = useQuote();
+  const [showDownloadPrompt, setShowDownloadPrompt] = useState(false);
 
   useEffect(() => {
     const container = document.getElementById("snap-scroll-container");
@@ -63,6 +64,7 @@ export default function CataloguePage() {
 
   const downloadAsPDF = async () => {
     setIsDownloading(true);
+    setShowDownloadPrompt(false);
     try {
       const { default: jsPDF } = await import("jspdf");
       const { default: html2canvas } = await import("html2canvas");
@@ -139,6 +141,14 @@ export default function CataloguePage() {
     }
   };
 
+  const handleDownloadClick = () => {
+    if (window.innerWidth < 768) {
+      setShowDownloadPrompt(true);
+    } else {
+      downloadAsPDF();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white relative">
 
@@ -146,7 +156,7 @@ export default function CataloguePage() {
       {/* DOWNLOAD PDF TRIGGER Action */}
       <div className="fixed top-20 md:top-24 right-4 md:right-6 z-40 no-pdf">
         <button
-          onClick={downloadAsPDF}
+          onClick={handleDownloadClick}
           disabled={isDownloading}
           title="Download Catalogue PDF"
           className="flex items-center justify-center bg-zinc-950/50 hover:bg-zinc-900 backdrop-blur-md border border-white/5 hover:border-amber-500/20 text-white/60 hover:text-amber-400 p-2.5 rounded-full transition-all duration-300 shadow-xl active:scale-95 disabled:opacity-50"
@@ -377,6 +387,22 @@ export default function CataloguePage() {
                 Saifi Furniture, Haldwani - 8077441194
               </div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* MOBILE DOWNLOAD CONFIRMATION MODAL */}
+      <AnimatePresence>
+        {showDownloadPrompt && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/80 backdrop-blur-md z-[70] flex items-center justify-center p-6">
+            <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }} className="bg-zinc-950 border border-white/10 p-6 rounded-2xl max-w-sm w-full text-center shadow-2xl">
+              <h3 className="text-lg font-serif font-bold text-white mb-2">Download PDF?</h3>
+              <p className="text-gray-400 text-xs mb-6 leading-relaxed">Generating the catalogue requires rendering visual sheets securely onto your device.</p>
+              <div className="flex gap-3">
+                <button onClick={() => setShowDownloadPrompt(false)} className="flex-1 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl border border-white/5 text-xs font-medium transition-all">Cancel</button>
+                <button onClick={downloadAsPDF} className="flex-1 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold shadow-lg transition-all">Download</button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
