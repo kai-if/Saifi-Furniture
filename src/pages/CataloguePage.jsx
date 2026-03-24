@@ -56,7 +56,7 @@ export default function CataloguePage() {
       subtitle: "Smart hardware blended with high-gloss bespoke panelings.",
       hotspots: [
         { id: "acrylic1", x: "35%", y: "50%", name: "Modular Acrylic Kitchen", material: "HDF & High Gloss Acrylic", dimensions: "Tailor Made Sizing", colors: ["#ffffff", "#262626", "#be123c"], colorNames: "Gloss White, Black, Crimson", warranty: "Lifetime Hardware Support", img: "/images/kitchen1.JPG" },
-        { id: "led", x: "65%", y: "40%", name: "LED Multi-Tier Panel", material: "MDF Frame with Ambient LEDs", dimensions: "96\"W x 84\"H x 14\"D", colors: ["#262626", "#171717"], colorNames: "Charcoal Mesh, Slate", warranty: "1 Year Electronics Warranty", img: "/images/ledp.JPG" }
+        { id: "led", x: "65%", y: "40%", name: "LED Multi-Tier Panel", material: "MDF Frame with Ambient LEDs", dimensions: "96\"W x 84\"H x 14\"D", colors: ["#262626", "#171717"], colorNames: "Charcoal Mesh, Slate", warranty: "3 Year Termite Warranty", img: "/images/ledp.JPG" }
       ]
     }
   ];
