@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle} from "lucide-react";
+import { Facebook, Instagram, Twitter, ChevronUp, Mail, MapPin, Phone, Copy, Motorbike, MessageCircle } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 const GOOGLE_SCRIPT_URL = import.meta.env.VITE_NEWSLETTER_SCRIPT_URL;
@@ -13,7 +13,7 @@ const Footer = () => {
   const [copied, setCopied] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [loading, setLoading] = useState(false);
- 
+
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 300);
@@ -42,7 +42,7 @@ const Footer = () => {
     }, 120);
   };
 
-const handleSubscribe = async (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
 
     if (!email) {
@@ -109,29 +109,25 @@ const handleSubscribe = async (e) => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand + playful tagline */}
           <div className="space-y-4">
-          <button
+            <button
               onClick={() => navigateAndScroll("home")}
               className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition bg-transparent border-none p-0 m-0 focus:outline-none"
               style={{ background: "none", border: "none" }}
-              >
+            >
               <div className="text-3xl md:text-4xl font-serif font-bold text-blue-200 select-none">
-                  SAIFI
+                SAIFI
               </div>
 
               <div className="text-sm text-amber-100 font-semibold">
-                  Furniture
-                </div>
-
-              <div className="ml-2 px-2 py-1 bg-amber-50 text-amber-900 rounded-full text-xs animate-pulse">
-                  ✨ New
+                Furniture
               </div>
-          </button>
+            </button>
 
             <p className="text-sm text-gray-200">
               Crafted with love. Built for stories. Tap the buttons below to explore — we’ll take you there, smooth as butter.
             </p>
 
-             {/* SOCIAL ICONS */}
+            {/* SOCIAL ICONS */}
             <div className="flex items-center gap-4 mt-4">
               <a
                 href="https://www.instagram.com/saififurnitures/"
@@ -162,20 +158,20 @@ const handleSubscribe = async (e) => {
               </a>
             </div>
 
-            <div className="mt-4 text-xs text-gray-300">© {new Date().getFullYear()} Saifi Furniture — built with care ❤️</div>
+            <div className="mt-4 text-xs text-gray-300">© {new Date().getFullYear()} Saifi Furniture</div>
           </div>
 
           {/* Quick links */}
-        <div>
+          <div>
             <h4 className="text-lg font-semibold text-amber-50 mb-3">Quick Links</h4>
 
-  {/* Two-column layout */}
-             <ul className="grid grid-cols-2 gap-y-2 gap-x-4">
-  {quickLinks.map((l, idx) => (
-    <li key={l.page} className="relative">
-      <button
-        onClick={() => navigateAndScroll(l.page, l.anchor)}
-        className={`
+            {/* Two-column layout */}
+            <ul className="grid grid-cols-2 gap-y-2 gap-x-4">
+              {quickLinks.map((l, idx) => (
+                <li key={l.page} className="relative">
+                  <button
+                    onClick={() => navigateAndScroll(l.page, l.anchor)}
+                    className={`
           link-anim
           group
           w-full
@@ -189,29 +185,29 @@ const handleSubscribe = async (e) => {
           cursor-pointer
           focus:outline-none
         `}
-        style={{ background: "none", border: "none" }}
-        aria-label={`Go to ${l.label}`}
-      >
-        <span className="relative inline-block overflow-hidden">
-          {/* main text — gradient on hover */}
-          <span className="inline-block transform transition-transform duration-300 group-hover:-translate-y-0.5">
-            {l.label}
-          </span>
+                    style={{ background: "none", border: "none" }}
+                    aria-label={`Go to ${l.label}`}
+                  >
+                    <span className="relative inline-block overflow-hidden">
+                      {/* main text — gradient on hover */}
+                      <span className="inline-block transform transition-transform duration-300 group-hover:-translate-y-0.5">
+                        {l.label}
+                      </span>
 
-          {/* sparkle sweep */}
-          <span className="sparkle absolute inset-y-0 left-0 w-0 bg-gradient-to-r from-white/40 via-white/20 to-white/0 opacity-0 group-hover:opacity-100"></span>
-        </span>
+                      {/* sparkle sweep */}
+                      <span className="sparkle absolute inset-y-0 left-0 w-0 bg-gradient-to-r from-white/40 via-white/20 to-white/0 opacity-0 group-hover:opacity-100"></span>
+                    </span>
 
-        {/* animated underline */}
-        <span
-          className="absolute left-0 -bottom-0.5 h-0.5 w-0 rounded-full bg-gray-300 transition-all duration-350 group-hover:w-full"
-          style={{ transitionTimingFunction: "cubic-bezier(.2,.9,.2,1)" }}
-        />
-      </button>
-    </li>
-  ))}
-</ul>
-</div>
+                    {/* animated underline */}
+                    <span
+                      className="absolute left-0 -bottom-0.5 h-0.5 w-0 rounded-full bg-gray-300 transition-all duration-350 group-hover:w-full"
+                      style={{ transitionTimingFunction: "cubic-bezier(.2,.9,.2,1)" }}
+                    />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
 
           {/* Newsletter & promo */}
@@ -266,7 +262,7 @@ const handleSubscribe = async (e) => {
                   +{import.meta.env.VITE_WHATSAPP_PHONE}
                 </a>
               </div>
-                <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3">
                 <Phone size={18} />
                 <a
                   href={`tel:+${import.meta.env.VITE_PHONE_SECONDARY}`}
