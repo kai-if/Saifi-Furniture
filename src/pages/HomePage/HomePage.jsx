@@ -62,7 +62,7 @@ export default function HomePage() {
             playsInline
             disablePictureInPicture
             controls={false}
-            className="absolute inset-0 w-full h-full object-cover object-center z-0 pointer-events-none"
+            className="absolute inset-0 w-full h-full object-cover object-[75%_center] md:object-center z-0 pointer-events-none"
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260428_193507_4286c423-2fd9-4efd-92bd-91a939453fc1.mp4"
           />
           <div className="absolute inset-0 bg-stone-900/30 z-0 pointer-events-none" />
