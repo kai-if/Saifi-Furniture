@@ -53,17 +53,19 @@ export default function HomePage() {
     <div className="overflow-hidden">
 
       {/* HERO SECTION */}
-      <div className="w-full h-screen flex items-center justify-center p-3 md:p-5 bg-stone-50">
-        <section className="relative w-full max-w-[1536px] h-full rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-none flex flex-col items-center justify-center group">
+      <div className="w-full h-[100dvh] flex items-center justify-center bg-stone-900">
+        <section className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center group">
           <video
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover object-[65%] lg:object-center z-0"
+            disablePictureInPicture
+            controls={false}
+            className="absolute inset-0 w-full h-full object-cover object-center z-0 pointer-events-none"
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260428_193507_4286c423-2fd9-4efd-92bd-91a939453fc1.mp4"
           />
-          <div className="absolute inset-0 bg-stone-900/30 z-0" />
+          <div className="absolute inset-0 bg-stone-900/30 z-0 pointer-events-none" />
 
           <div ref={heroRef} className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6 max-w-4xl">
             <motion.h1 
