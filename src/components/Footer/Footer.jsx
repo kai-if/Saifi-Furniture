@@ -88,6 +88,7 @@ const handleSubscribe = async (e) => {
 
   const quickLinks = [
     { page: "home", label: "Home" },
+    { page: "catalogue", label: "Catalogue" },
     { page: "about", label: "Our Story", anchor: "our-story" }, // anchor optional
     { page: "services", label: "Services", anchor: "services" },
     { page: "gallery", label: "Gallery" },

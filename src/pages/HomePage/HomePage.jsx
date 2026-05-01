@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import Lightbox from "../../components/Lightbox/Lightbox";
 import TestimonialsCarousel from "../../components/TestimonialsCarousel";
 import PremiumCTA from "../../components/PremiumCTA";
@@ -52,41 +53,62 @@ export default function HomePage() {
     <div className="overflow-hidden">
 
       {/* HERO SECTION */}
-      <section className="relative h-screen flex items-center justify-center">
-        <div
-          className="absolute inset-0 bg-cover bg-center slow-zoom"
-          style={{ backgroundImage: "url('/assets/images/IMG_2905.JPG')" }}
-        />
-        <div className="absolute inset-0 bg-stone-900/45" />
+      <div className="w-full h-screen flex items-center justify-center p-3 md:p-5 bg-stone-50">
+        <section className="relative w-full max-w-[1536px] h-full rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-none flex flex-col items-center justify-center group">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover object-[65%] lg:object-center z-0"
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260428_193507_4286c423-2fd9-4efd-92bd-91a939453fc1.mp4"
+          />
+          <div className="absolute inset-0 bg-stone-900/30 z-0" />
 
-        <div ref={heroRef} className="relative z-10 text-center px-6 max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-stone-100 mb-6">
-            Crafted Elegance
-            <br />
-            for Your Home
-          </h1>
-
-          <p className="text-xl md:text-2xl text-stone-200 mb-10">
-            Handcrafted furniture blending comfort, quality, and timeless design.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button
-              onClick={() => navigate("/gallery")}
-              className="bg-stone-100 text-stone-900 px-10 py-4 rounded-md font-medium hover:bg-stone-200 transition-all duration-300"
+          <div ref={heroRef} className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6 max-w-4xl">
+            <motion.h1 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-5xl md:text-7xl font-serif font-bold text-stone-100 mb-6"
             >
-              Explore Collection
-            </button>
+              Crafted Elegance
+              <br />
+              for Your Home
+            </motion.h1>
 
-            <button
-              onClick={() => navigate("/contact")}
-              className="border border-stone-200 text-black dark:text-stone-100 px-10 py-4 rounded-md hover:bg-stone-100/10 dark:hover:bg-stone-700/30 transition-all duration-300"
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl md:text-2xl text-stone-200 mb-10 drop-shadow-md"
             >
-              Get a Quote
-            </button>
+              Handcrafted furniture blending comfort, quality, and timeless design.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center"
+            >
+              <button
+                onClick={() => navigate("/gallery")}
+                className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-full font-medium hover:bg-white/30 transition-all duration-300 shadow-lg"
+              >
+                Explore Collection
+              </button>
+
+              <button
+                onClick={() => navigate("/contact")}
+                className="bg-stone-900/40 backdrop-blur-md border border-stone-700/50 text-stone-100 px-10 py-4 rounded-full hover:bg-stone-900/60 transition-all duration-300 shadow-lg"
+              >
+                Get a Quote
+              </button>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* FEATURED COLLECTION */}
       <section ref={featureRef} className="bg-stone-300 py-24 px-6">
