@@ -121,10 +121,6 @@ const Footer = () => {
               <div className="text-sm text-amber-100 font-semibold">
                 Furniture
               </div>
-
-              <div className="ml-2 px-2 py-1 bg-amber-50 text-amber-900 rounded-full text-xs animate-pulse">
-                ✨ New
-              </div>
             </button>
 
             <p className="text-sm text-gray-200">
