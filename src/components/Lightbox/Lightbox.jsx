@@ -20,6 +20,11 @@ export default function Lightbox({ images = [], startIndex = 0, onClose }) {
   const pinchStartDist = useRef(0);
   const pinchStartScale = useRef(1);
 
+  // Swipe tracking
+  const touchStartRef = useRef(null);
+  const touchEndRef = useRef(null);
+  const SWIPE_THRESHOLD = 50;
+
   /* ===============================
      INIT / CLEANUP
   ================================ */
@@ -27,9 +32,17 @@ export default function Lightbox({ images = [], startIndex = 0, onClose }) {
     setIndex(startIndex);
     setScale(1);
     setOrigin({ x: 50, y: 50 });
+    
+    // Robust scroll locking for Desktop & Mobile
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
     };
   }, [startIndex]);
 
@@ -116,6 +129,10 @@ export default function Lightbox({ images = [], startIndex = 0, onClose }) {
     if (e.touches.length === 2) {
       pinchStartDist.current = distance(e.touches[0], e.touches[1]);
       pinchStartScale.current = scale;
+      touchStartRef.current = null; // Cancel swipe if 2 fingers
+    } else if (e.touches.length === 1 && scale === 1) {
+      touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      touchEndRef.current = null;
     }
   };
 
@@ -131,7 +148,29 @@ export default function Lightbox({ images = [], startIndex = 0, onClose }) {
           MAX_ZOOM
         )
       );
+    } else if (e.touches.length === 1 && scale === 1 && touchStartRef.current) {
+      touchEndRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (scale === 1 && touchStartRef.current && touchEndRef.current) {
+      const dx = touchStartRef.current.x - touchEndRef.current.x;
+      const dy = touchStartRef.current.y - touchEndRef.current.y;
+      
+      // Horizontal swipe detected
+      if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0) {
+          next(); // Swiped left, show next
+        } else {
+          prev(); // Swiped right, show prev
+        }
+      }
+    }
+    
+    // Reset
+    touchStartRef.current = null;
+    touchEndRef.current = null;
   };
 
   /* ===============================
@@ -143,12 +182,26 @@ export default function Lightbox({ images = [], startIndex = 0, onClose }) {
         fixed inset-0 z-[100000]
         bg-black
         flex items-center justify-center
+        touch-none
       "
       role="dialog"
       aria-modal="true"
-      onWheel={handleWheel}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
+      onWheel={(e) => {
+        e.stopPropagation();
+        handleWheel(e);
+      }}
+      onTouchStart={(e) => {
+        e.stopPropagation();
+        handleTouchStart(e);
+      }}
+      onTouchMove={(e) => {
+        e.stopPropagation();
+        handleTouchMove(e);
+      }}
+      onTouchEnd={(e) => {
+        e.stopPropagation();
+        handleTouchEnd(e);
+      }}
     >
       {/* Close */}
       <button
