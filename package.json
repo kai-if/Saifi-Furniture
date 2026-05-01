@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
+    "@gsap/react": "^2.1.1",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.36.0",
+    "gsap": "^3.12.5",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "lucide-react": "^0.559.0",

@@ -5,6 +5,7 @@ import TestimonialsCarousel from "../../components/TestimonialsCarousel";
 import PremiumCTA from "../../components/PremiumCTA";
 import useReveal from "../../hooks/useReveal";
 import { useNavigate } from "react-router-dom";
+import HorizontalGallery from "../../components/Showcase/HorizontalGallery";
 
 /* ===============================
    FEATURED PRODUCTS
@@ -24,6 +25,21 @@ const featuredProducts = [
     name: "Wooden Doors",
     img: "/assets/images/door.JPG",
     alt: "Wooden Doors"
+  },
+  {
+    name: "Modern Living Room",
+    img: "/assets/images/IMG_2905.JPG",
+    alt: "Modern Living Room"
+  },
+  {
+    name: "Classic Wooden Bed",
+    img: "/assets/images/bed.JPG",
+    alt: "Classic Wooden Bed"
+  },
+  {
+    name: "Elegant Dressing Table",
+    img: "/assets/images/dressing.PNG",
+    alt: "Elegant Dressing Table"
   }
 ];
 
@@ -50,7 +66,7 @@ export default function HomePage() {
   const testimonialRef = useReveal();
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-x-hidden w-full">
 
       {/* HERO SECTION */}
       <div className="w-full h-[100dvh] flex items-center justify-center bg-stone-900">
@@ -68,7 +84,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-stone-900/30 z-0 pointer-events-none" />
 
           <div ref={heroRef} className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6 max-w-4xl">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -79,7 +95,7 @@ export default function HomePage() {
               for Your Home
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -88,7 +104,7 @@ export default function HomePage() {
               Handcrafted furniture blending comfort, quality, and timeless design.
             </motion.p>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -112,53 +128,22 @@ export default function HomePage() {
         </section>
       </div>
 
-      {/* FEATURED COLLECTION */}
-      <section ref={featureRef} className="bg-stone-300 py-24 px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-4">
-              Featured Collection
-            </h2>
-            <p className="text-stone-700 text-lg">
-              Handpicked pieces that define luxury living
-            </p>
-          </div>
+      {/* FEATURED COLLECTION - STICKY HORIZONTAL SCROLL */}
+      <HorizontalGallery
+        products={featuredProducts}
+        onImageClick={(idx) => {
+          setStartIdx(idx);
+          setLightboxOpen(true);
+        }}
+      />
 
-          <div className="grid md:grid-cols-3 gap-10">
-            {featuredProducts.map((product, idx) => (
-              <div
-                key={idx}
-                className="group cursor-pointer fade-up"
-                style={{ animationDelay: `${idx * 150}ms` }}
-                onClick={() => {
-                  setStartIdx(idx);
-                  setLightboxOpen(true);
-                }}
-              >
-                <div className="relative aspect-square overflow-hidden rounded-2xl shadow-lg">
-                  <img
-                    src={product.img}
-                    alt={product.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-
-                <h3 className="mt-6 text-xl font-serif font-semibold text-stone-900">
-                  {product.name}
-                </h3>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {lightboxOpen && (
-          <Lightbox
-            images={lightboxImages}
-            startIndex={startIdx}
-            onClose={() => setLightboxOpen(false)}
-          />
-        )}
-      </section>
+      {lightboxOpen && (
+        <Lightbox
+          images={lightboxImages}
+          startIndex={startIdx}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
 
       {/* TESTIMONIALS */}
       <section ref={testimonialRef} className="bg-stone-100 py-28 px-6">
