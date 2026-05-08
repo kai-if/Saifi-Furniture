@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://saififurniture.com/sitemap.xml
+Sitemap: https://www.saififurniture.com/sitemap.xml

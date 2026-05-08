@@ -32,54 +32,54 @@ export default function App() {
   useEffect(() => {
     const seoMap = {
       "/": {
-        title: "Saifi Furniture | Luxury Custom Furniture in Haldwani",
-        desc: "Luxury custom furniture, modular kitchens & interiors crafted with precision. Best furniture showroom in Haldwani.",
-        keywords: "furniture in haldwani, luxury furniture, custom furniture, modular kitchen, saifi furniture"
+        title: "Saifi Furniture | Best Luxury Furniture in Haldwani",
+        desc: "Saifi Furniture offers the best luxury custom furniture and modular kitchens in Haldwani. Find premium furniture near me for your home & office.",
+        keywords: "saifi furniture, saifi furniture Haldwani, best furniture, best furniture in haldwani, luxury furniture, luxury furniture haldwani, furniture near me"
       },
       "/catalogue": {
-        title: "Exclusive Catalogue | Saifi Furniture Luxury Collection",
-        desc: "Explore the Saifi Furniture 2026 Catalogue featuring premium sofas, bed frames, and modular layouts.",
-        keywords: "furniture catalogue, design lookbook, product brochure, luxury furniture pricing"
+        title: "Exclusive Catalogue | Best Furniture in Haldwani",
+        desc: "Explore the Saifi Furniture Catalogue featuring premium luxury furniture. Find the best furniture near me with top-notch modular layouts.",
+        keywords: "saifi furniture catalogue, luxury furniture haldwani, best furniture, furniture near me"
       },
       "/about": {
-        title: "About Us | Saifi Furniture",
-        desc: "Learn about Saifi Furniture’s craftsmanship, values, and design philosophy.",
-        keywords: "wood craftsmanship, custom design philosophy, saifi furniture history"
+        title: "About Us | Saifi Furniture Haldwani",
+        desc: "Learn about Saifi Furniture’s craftsmanship. We are known for providing the best luxury furniture in Haldwani.",
+        keywords: "about saifi furniture, saifi furniture Haldwani, luxury furniture, best furniture in haldwani"
       },
       "/services": {
-        title: "Services | Custom Furniture & Interiors",
-        desc: "Custom furniture design, modular kitchens, restoration & interior consultation.",
-        keywords: "interior design services, modular kitchen installation, furniture restoration"
+        title: "Services | Custom & Luxury Furniture Haldwani",
+        desc: "Custom furniture design and modular kitchens by Saifi Furniture. Delivering the best furniture in Haldwani and nearby locations.",
+        keywords: "furniture services, best furniture in haldwani, custom luxury furniture, furniture near me"
       },
       "/gallery": {
-        title: "Gallery | Saifi Furniture Projects",
-        desc: "Explore our luxury furniture and interior design projects.",
-        keywords: "furniture ideas, design portfolio, luxury interior concepts"
+        title: "Gallery | Best Furniture Projects in Haldwani",
+        desc: "Explore our luxury furniture and interior design projects at Saifi Furniture Haldwani. See why we offer the best furniture near me.",
+        keywords: "saifi furniture gallery, best furniture, luxury furniture haldwani, furniture near me"
       },
       "/blog": {
-        title: "Ideas & Insights | Saifi Furniture Blog",
-        desc: "Design ideas, furniture tips, and interior inspiration.",
-        keywords: "interior tips, wood maintenance, home decor blogs"
+        title: "Blog | Luxury Furniture Ideas by Saifi Furniture",
+        desc: "Design ideas and tips for the best luxury furniture in Haldwani. Stay updated with Saifi Furniture.",
+        keywords: "furniture blog, best furniture in haldwani, luxury furniture ideas, saifi furniture Haldwani"
       },
       "/contact": {
-        title: "Contact Us | Saifi Furniture Haldwani",
-        desc: "Get in touch with Saifi Furniture for custom furniture & interiors.",
-        keywords: "saifi furniture contact, showroom number, haldwani details"
+        title: "Contact Saifi Furniture | Best Furniture in Haldwani",
+        desc: "Get in touch with Saifi Furniture. We offer the best luxury custom furniture in Haldwani. Visit our showroom near you.",
+        keywords: "contact saifi furniture, saifi furniture Haldwani, furniture near me, best furniture in haldwani"
       },
       "/testimonials": {
-        title: "Client Reviews | Saifi Furniture Ratings",
-        desc: "Read reviews and experiences shared by our valued clients.",
-        keywords: "saifi furniture reviews, client testimonials, customer feedback"
+        title: "Reviews | Saifi Furniture Haldwani",
+        desc: "Read client reviews and see why we are rated as the best luxury furniture store in Haldwani.",
+        keywords: "saifi furniture reviews, best furniture in haldwani, luxury furniture haldwani"
       },
       "/offers": {
-        title: "Offers & Deals | Saifi Furniture",
-        desc: "Explore special offers and deals from Saifi Furniture.",
-        keywords: "furniture discounts, sales, seasonal node deals"
+        title: "Offers & Deals | Luxury Furniture in Haldwani",
+        desc: "Explore special deals on the best luxury furniture in Haldwani at Saifi Furniture.",
+        keywords: "furniture offers, saifi furniture Haldwani, best furniture deals, luxury furniture discounts"
       },
       "/location": {
-        title: "Our Location | Saifi Furniture Showroom",
-        desc: "Visit Saifi Furniture showroom and experience craftsmanship firsthand.",
-        keywords: "saifi location, furniture map showroom, address route"
+        title: "Location | Saifi Furniture Showroom Haldwani",
+        desc: "Visit the Saifi Furniture showroom. Find the best luxury furniture near me in Haldwani.",
+        keywords: "saifi furniture location, furniture near me, saifi furniture Haldwani, best furniture showroom"
       }
     };
 
